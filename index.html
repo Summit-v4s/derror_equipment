@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Studio Camera / Lens / Light Catalog</title>
   <style>
     :root {
@@ -777,21 +777,25 @@
       html,
       body {
         width: 100%;
-        min-height: 100dvh;
+        height: 100%;
+        min-height: 100%;
         overflow: hidden;
+        background: #070914;
       }
 
       body {
         display: block;
-        background: #070914;
+        position: fixed;
+        inset: 0;
       }
 
       .story {
         position: fixed;
-        top: 0;
+        top: 50%;
         left: 50%;
-        transform-origin: top center;
-        transform: translateX(-50%) scale(var(--app-scale, calc(100vw / 1080)));
+        transform-origin: center center;
+        transform: translate(-50%, -50%) scale(var(--app-scale, calc(100vw / 1080)));
+        will-change: transform;
       }
     }
   </style>
@@ -1098,16 +1102,37 @@
       }
     });
 
+    function getViewportSize() {
+      const viewport = window.visualViewport;
+      return {
+        width: viewport ? viewport.width : window.innerWidth,
+        height: viewport ? viewport.height : window.innerHeight
+      };
+    }
+
     function fitStoryToViewport() {
-      const widthScale = window.innerWidth / 1080;
-      const heightScale = window.innerHeight / 1920;
+      const { width, height } = getViewportSize();
+      const widthScale = width / 1080;
+      const heightScale = height / 1920;
       const scale = Math.min(widthScale, heightScale);
-      document.documentElement.style.setProperty("--app-scale", scale);
+
+      document.documentElement.style.setProperty("--app-scale", String(scale));
+      document.documentElement.style.setProperty("--app-vw", `${width}px`);
+      document.documentElement.style.setProperty("--app-vh", `${height}px`);
     }
 
     window.addEventListener("resize", fitStoryToViewport);
     window.addEventListener("orientationchange", fitStoryToViewport);
+    window.addEventListener("load", fitStoryToViewport);
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", fitStoryToViewport);
+      window.visualViewport.addEventListener("scroll", fitStoryToViewport);
+    }
+
     fitStoryToViewport();
+    requestAnimationFrame(fitStoryToViewport);
+    setTimeout(fitStoryToViewport, 250);
 
     renderList("camera");
   </script>
