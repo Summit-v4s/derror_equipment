@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Studio Camera / Lens / Light Catalog</title>
   <style>
     :root {
@@ -1144,8 +1144,12 @@
       return "lensPrime";
     }
 
-    function renderList(category = currentCategory) {
+    function renderList(category = currentCategory, updateUrl = false) {
       currentCategory = category;
+
+      if (updateUrl) {
+        history.replaceState(null, "", `#${category}`);
+      }
       const info = categoryInfo[category];
       const items = activeItems();
 
@@ -1243,7 +1247,9 @@
       show("detail");
     }
 
-    document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => renderList(button.dataset.category)));
+    document.querySelectorAll(".tab-button").forEach(button => {
+      button.addEventListener("click", () => renderList(button.dataset.category, true));
+    });
     backButton.addEventListener("click", () => renderList(currentCategory));
     transitionContinue.addEventListener("click", finishTransition);
     transitionBack.addEventListener("click", cancelTransition);
@@ -1266,7 +1272,25 @@
     window.addEventListener("orientationchange", fitStoryToViewport);
     fitStoryToViewport();
 
-    renderList("camera");
+    function getInitialCategory() {
+      const params = new URLSearchParams(window.location.search);
+      const categoryFromQuery = params.get("category");
+      const hashCategory = window.location.hash.replace("#", "");
+      const requestedCategory = categoryFromQuery || hashCategory;
+
+      if (requestedCategory && data[requestedCategory]) {
+        return requestedCategory;
+      }
+
+      return "camera";
+    }
+
+    window.addEventListener("hashchange", () => {
+      const nextCategory = getInitialCategory();
+      renderList(nextCategory, false);
+    });
+
+    renderList(getInitialCategory(), false);
   </script>
 </body>
 </html>
