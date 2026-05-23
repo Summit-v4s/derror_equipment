@@ -827,6 +827,31 @@
       box-shadow: 0 24px 70px rgba(0,0,0,0.20);
     }
 
+
+
+    .studio-branch-card {
+      min-height: 380px;
+      grid-template-columns: 340px 1fr 46px;
+      padding: 34px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .studio-branch-card .space-thumb {
+      width: 340px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .studio-branch-card .space-card-title {
+      font-size: 62px;
+      margin-bottom: 18px;
+    }
+
+    .studio-branch-card .space-card-copy {
+      font-size: 30px;
+      line-height: 1.48;
+      max-width: 610px;
+    }
+
     .space-card:hover,
     .horizon-color-button:hover,
     .space-back:hover {
@@ -1217,9 +1242,9 @@
 
     <section id="spacePage" class="page">
       <div class="intro">
-        <div class="kicker">RENTAL STUDIO / CYCLORAMA / MAKEUP ROOM</div>
+        <div class="kicker">RENTAL STUDIO / ANNEX SPACE</div>
         <h1>스튜디오 공간</h1>
-        <div class="copy">촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 정리했습니다.</div>
+        <div class="copy">오류관과 오류별관으로 나누어 사용할 수 있는 촬영 공간과 포토존을 정리했습니다.</div>
       </div>
 
       <div class="tabs">
@@ -1232,8 +1257,44 @@
       </div>
 
       <div class="space-subgrid">
+        <button class="space-card studio-branch-card" data-building="oryu-main">
+          <div class="space-thumb" data-label="오류관 대표 사진
+./images/rental-room-main.jpg">
+            <img src="./images/rental-room-main.jpg" alt="오류관 대표 이미지" />
+          </div>
+          <div>
+            <div class="space-card-title">오류관</div>
+            <div class="space-card-meta"><span class="tag">대관실</span><span class="tag">호리존</span><span class="tag">메이크업룸</span></div>
+            <div class="space-card-copy">컨셉 대관실, 촬영용 호리존, 준비 공간을 함께 확인할 수 있는 메인 스튜디오 공간입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card studio-branch-card" data-building="annex">
+          <div class="space-thumb" data-label="오류별관 대표 사진
+./images/annex-main.jpg">
+            <img src="./images/annex-main.jpg" alt="오류별관 대표 이미지" />
+          </div>
+          <div>
+            <div class="space-card-title">오류별관</div>
+            <div class="space-card-meta"><span class="tag">남향</span><span class="tag">빈티지 룸</span><span class="tag">음악 소품</span></div>
+            <div class="space-card-copy">따뜻한 자연광과 악기, 음반, 레트로 가구가 어우러진 빈티지 감성의 별도 촬영 공간입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+      </div>
+    </section>
+
+    <section id="oryuMainPage" class="page">
+      <header class="topline">
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <div class="pill">오류관</div>
+      </header>
+
+      <div class="space-subgrid">
         <button class="space-card" data-space="rental">
-          <div class="space-thumb" data-label="대관실 대표 사진\n./images/rental-room-main.jpg">
+          <div class="space-thumb" data-label="대관실 대표 사진
+./images/rental-room-main.jpg">
             <img src="./images/rental-room-main.jpg" alt="대관실 대표 이미지" />
           </div>
           <div>
@@ -1245,7 +1306,8 @@
         </button>
 
         <button class="space-card" data-space="horizon">
-          <div class="space-thumb" data-label="호리존 대표 사진\n./images/horizon-white.jpg"></div>
+          <div class="space-thumb" data-label="호리존 대표 사진
+./images/horizon-white.jpg"></div>
           <div>
             <div class="space-card-title">호리존</div>
             <div class="space-card-meta"><span class="tag">275×250cm</span><span class="tag">배경지 선택</span><span class="tag">촬영 작업용</span></div>
@@ -1255,7 +1317,8 @@
         </button>
 
         <button class="space-card" data-space="makeup">
-          <div class="space-thumb" data-label="메이크업룸 사진\n./images/makeup-room.jpg"></div>
+          <div class="space-thumb" data-label="메이크업룸 사진
+./images/makeup-room.jpg"></div>
           <div>
             <div class="space-card-title">메이크업룸</div>
             <div class="space-card-meta"><span class="tag">준비 공간</span><span class="tag">헤어·메이크업</span><span class="tag">촬영 전 정비</span></div>
@@ -1263,14 +1326,12 @@
           </div>
           <div class="arrow">›</div>
         </button>
-
-
       </div>
     </section>
 
     <section id="rentalPage" class="page">
       <header class="topline">
-        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
         <div class="pill">대관실</div>
       </header>
 
@@ -1339,9 +1400,88 @@
       </div>
     </section>
 
-    <section id="horizonPage" class="page">
+    <section id="annexPage" class="page">
       <header class="topline">
         <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <div class="pill">오류별관</div>
+      </header>
+
+      <div class="space-blog-scroll">
+        <div>
+          <div class="kicker">SOUTH-FACING VINTAGE ROOM</div>
+          <div class="space-section-heading">오류별관</div>
+          <div class="space-section-copy">남향 자연광이 들어오는 빈티지 룸입니다. 악기, 음반, CRT TV, 레트로 가구가 어우러져 음악을 좋아하는 사람의 자취방 같은 생활감 있는 촬영 무드를 만들 수 있습니다.</div>
+        </div>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="오류별관 전체 공간
+./images/annex-main.jpg">
+            <img src="./images/annex-main.jpg" alt="오류별관 전체 공간" />
+          </div>
+          <div class="space-caption"><div class="caption-number">01</div><div><div class="caption-title">남향 빈티지 룸</div><div class="caption-copy">따뜻한 자연광과 초록 소파, 기타와 음반 소품을 함께 담을 수 있는 오류별관의 기본 공간입니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="음악 소품 라운지
+./images/annex-music-room.jpg">
+            <img src="./images/annex-music-room.jpg" alt="오류별관 음악 소품 라운지" />
+          </div>
+          <div class="space-caption"><div class="caption-number">02</div><div><div class="caption-title">음악 소품 라운지</div><div class="caption-copy">기타, 앰프, LP, 스피커를 배경으로 음악 취향이 드러나는 인물 촬영을 구성하기 좋습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="CRT TV와 빈티지 데스크
+./images/annex-crt-desk.jpg">
+            <img src="./images/annex-crt-desk.jpg" alt="오류별관 CRT TV와 빈티지 데스크" />
+          </div>
+          <div class="space-caption"><div class="caption-number">03</div><div><div class="caption-title">CRT TV와 빈티지 데스크</div><div class="caption-copy">브라운관 TV, 거울, 원목 가구를 활용해 90년대 자취방이나 레트로 룸 콘셉트를 연출할 수 있습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="플라워 침대 공간
+./images/annex-bed.jpg">
+            <img src="./images/annex-bed.jpg" alt="오류별관 플라워 침대 공간" />
+          </div>
+          <div class="space-caption"><div class="caption-number">04</div><div><div class="caption-title">플라워 침대 공간</div><div class="caption-copy">플라워 패턴 침구와 밝은 창가를 중심으로 자연스럽고 편안한 생활감의 인물 촬영에 어울립니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="레코드와 오디오 소품
+./images/annex-vinyl-shelf.jpg">
+            <img src="./images/annex-vinyl-shelf.jpg" alt="오류별관 레코드와 오디오 소품" />
+          </div>
+          <div class="space-caption"><div class="caption-number">05</div><div><div class="caption-title">레코드와 오디오 소품</div><div class="caption-copy">LP, 카세트, 카메라, 스피커 같은 소품을 가까이 담아 음악 취향과 빈티지 디테일을 강조할 수 있습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="기타와 앰프 디테일
+./images/annex-guitar-detail.jpg">
+            <img src="./images/annex-guitar-detail.jpg" alt="오류별관 기타와 앰프 디테일" />
+          </div>
+          <div class="space-caption"><div class="caption-number">06</div><div><div class="caption-title">기타와 앰프 디테일</div><div class="caption-copy">악기와 앰프를 전면에 두고 뮤지션, 밴드, 싱어송라이터 느낌의 클로즈업 컷을 만들기 좋습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="램프와 바틀 소품
+./images/annex-lamp-detail.jpg">
+            <img src="./images/annex-lamp-detail.jpg" alt="오류별관 램프와 바틀 소품" />
+          </div>
+          <div class="space-caption"><div class="caption-number">07</div><div><div class="caption-title">램프와 바틀 소품</div><div class="caption-copy">테이블 램프와 바틀, 작은 장식 소품을 활용해 따뜻한 무드의 디테일 컷을 구성할 수 있습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="레트로 키친 디테일
+./images/annex-kitchen.jpg">
+            <img src="./images/annex-kitchen.jpg" alt="오류별관 레트로 키친 디테일" />
+          </div>
+          <div class="space-caption"><div class="caption-number">08</div><div><div class="caption-title">레트로 키친 디테일</div><div class="caption-copy">작은 주방 소품과 따뜻한 조명을 활용해 생활감 있는 필름 무드의 서브 컷을 만들 수 있습니다.</div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="horizonPage" class="page">
+      <header class="topline">
+        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
         <div class="pill">호리존</div>
       </header>
 
@@ -1379,7 +1519,7 @@
 
     <section id="spaceSimplePage" class="page">
       <header class="topline">
-        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
         <div id="simpleSpacePill" class="pill">SPACE</div>
       </header>
 
@@ -1575,6 +1715,8 @@
         list: listPage,
         detail: detailPage,
         space: document.getElementById("spacePage"),
+        oryu: document.getElementById("oryuMainPage"),
+        annex: document.getElementById("annexPage"),
         rental: document.getElementById("rentalPage"),
         horizon: document.getElementById("horizonPage"),
         simpleSpace: document.getElementById("spaceSimplePage")
@@ -1704,6 +1846,18 @@
       if (updateUrl) history.replaceState(null, "", "#studio");
       setActiveTab("studio");
       show("space");
+    }
+
+    function showOryuMain() {
+      currentCategory = "studio";
+      setActiveTab("studio");
+      show("oryu");
+    }
+
+    function showAnnex() {
+      currentCategory = "studio";
+      setActiveTab("studio");
+      show("annex");
     }
 
     function renderList(category = currentCategory, updateUrl = false) {
@@ -1870,12 +2024,22 @@
       });
     }
 
+    document.querySelectorAll("[data-building]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.dataset.building === "oryu-main") showOryuMain();
+        if (button.dataset.building === "annex") showAnnex();
+      });
+    });
+
     document.querySelectorAll("[data-space]").forEach((button) => {
       button.addEventListener("click", () => showSpaceDetail(button.dataset.space));
     });
 
     document.querySelectorAll("[data-space-back]").forEach((button) => {
-      button.addEventListener("click", () => showStudioHome(false));
+      button.addEventListener("click", () => {
+        if (button.dataset.spaceBack === "oryu") showOryuMain();
+        else showStudioHome(false);
+      });
     });
 
     document.querySelectorAll(".horizon-color-button").forEach((button) => {
