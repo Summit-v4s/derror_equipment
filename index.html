@@ -779,6 +779,7 @@
         width: 100%;
         height: 100%;
         min-height: 100%;
+        margin: 0;
         overflow: hidden;
         background: #070914;
       }
@@ -787,12 +788,13 @@
         display: block;
         position: fixed;
         inset: 0;
+        overscroll-behavior: none;
       }
 
       .story {
         position: fixed;
-        top: 50%;
-        left: 50%;
+        top: var(--vv-center-y, 50vh);
+        left: var(--vv-center-x, 50vw);
         transform-origin: center center;
         transform: translate(-50%, -50%) scale(var(--app-scale, calc(100vw / 1080)));
         will-change: transform;
@@ -1102,37 +1104,46 @@
       }
     });
 
-    function getViewportSize() {
+    function getViewportMetrics() {
       const viewport = window.visualViewport;
-      return {
-        width: viewport ? viewport.width : window.innerWidth,
-        height: viewport ? viewport.height : window.innerHeight
-      };
+      const width = viewport ? viewport.width : (document.documentElement.clientWidth || window.innerWidth);
+      const height = viewport ? viewport.height : (document.documentElement.clientHeight || window.innerHeight);
+      const offsetLeft = viewport ? viewport.offsetLeft : 0;
+      const offsetTop = viewport ? viewport.offsetTop : 0;
+
+      return { width, height, offsetLeft, offsetTop };
     }
 
     function fitStoryToViewport() {
-      const { width, height } = getViewportSize();
+      const { width, height, offsetLeft, offsetTop } = getViewportMetrics();
       const widthScale = width / 1080;
       const heightScale = height / 1920;
-      const scale = Math.min(widthScale, heightScale);
+      const scale = Math.min(widthScale, heightScale, 1);
+      const root = document.documentElement;
 
-      document.documentElement.style.setProperty("--app-scale", String(scale));
-      document.documentElement.style.setProperty("--app-vw", `${width}px`);
-      document.documentElement.style.setProperty("--app-vh", `${height}px`);
+      root.style.setProperty("--app-scale", String(scale));
+      root.style.setProperty("--vv-center-x", `${offsetLeft + width / 2}px`);
+      root.style.setProperty("--vv-center-y", `${offsetTop + height / 2}px`);
     }
 
-    window.addEventListener("resize", fitStoryToViewport);
-    window.addEventListener("orientationchange", fitStoryToViewport);
-    window.addEventListener("load", fitStoryToViewport);
+    function scheduleFitStoryToViewport() {
+      requestAnimationFrame(fitStoryToViewport);
+      requestAnimationFrame(() => requestAnimationFrame(fitStoryToViewport));
+      setTimeout(fitStoryToViewport, 100);
+      setTimeout(fitStoryToViewport, 350);
+      setTimeout(fitStoryToViewport, 900);
+    }
+
+    window.addEventListener("load", scheduleFitStoryToViewport);
+    window.addEventListener("resize", scheduleFitStoryToViewport);
+    window.addEventListener("orientationchange", scheduleFitStoryToViewport);
 
     if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", fitStoryToViewport);
-      window.visualViewport.addEventListener("scroll", fitStoryToViewport);
+      window.visualViewport.addEventListener("resize", scheduleFitStoryToViewport);
+      window.visualViewport.addEventListener("scroll", scheduleFitStoryToViewport);
     }
 
-    fitStoryToViewport();
-    requestAnimationFrame(fitStoryToViewport);
-    setTimeout(fitStoryToViewport, 250);
+    scheduleFitStoryToViewport();
 
     renderList("camera");
   </script>
