@@ -212,24 +212,7 @@
     .item-list {
       height: 930px;
       overflow-y: auto;
-      padding: 34px 8px 34px 0;
-      scroll-padding: 34px 0;
-      scroll-behavior: smooth;
-      overscroll-behavior: contain;
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0,
-        black 36px,
-        black calc(100% - 36px),
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        to bottom,
-        transparent 0,
-        black 36px,
-        black calc(100% - 36px),
-        transparent 100%
-      );
+      padding-right: 8px;
       display: grid;
       align-content: start;
       gap: 18px;
@@ -238,12 +221,6 @@
 
     .item-list::-webkit-scrollbar { width: 8px; }
     .item-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 999px; }
-
-    .item-list::before,
-    .item-list::after {
-      content: "";
-      pointer-events: none;
-    }
 
     .item-card {
       width: 100%;
@@ -367,6 +344,37 @@
       box-shadow:
         0 24px 0 rgba(255,90,200,0.88),
         0 48px 0 rgba(255,180,90,0.82);
+    }
+
+
+    .icon-badge::before,
+    .icon-badge::after {
+      display: none !important;
+    }
+
+    .icon-svg {
+      width: 78px;
+      height: 78px;
+      stroke: rgba(255,255,255,0.88);
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.24));
+    }
+
+    .icon-svg .thin {
+      stroke-width: 4.5;
+    }
+
+    .icon-svg .filled {
+      fill: rgba(255,255,255,0.88);
+      stroke: none;
+    }
+
+    .icon-svg .soft-fill {
+      fill: rgba(255,255,255,0.14);
+      stroke: rgba(255,255,255,0.84);
     }
 
     .item-name {
@@ -1010,6 +1018,57 @@
       window.scrollTo(0, 0);
     }
 
+
+    function iconSvg(type) {
+      const icons = {
+        camera: `
+          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M29 44H44L51 35H69L76 44H91C97 44 101 48 101 54V83C101 89 97 93 91 93H29C23 93 19 89 19 83V54C19 48 23 44 29 44Z" />
+            <circle cx="60" cy="69" r="20" />
+            <circle cx="60" cy="69" r="9" />
+            <circle class="filled" cx="86" cy="56" r="4.5" />
+          </svg>
+        `,
+        lens: `
+          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="39" />
+            <circle cx="60" cy="60" r="24" />
+            <circle cx="60" cy="60" r="9" />
+            <path class="thin" d="M60 21V38M60 82V99M21 60H38M82 60H99" />
+            <path class="thin" d="M33 33L45 45M75 75L87 87M87 33L75 45M45 75L33 87" />
+          </svg>
+        `,
+        light: `
+          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="soft-fill" cx="55" cy="46" r="24" />
+            <path d="M39 70H71" />
+            <path d="M43 84H67" />
+            <path d="M48 97H62" />
+            <path class="thin" d="M21 46H9M101 46H89M55 12V4M29 20L20 11M81 20L90 11" />
+          </svg>
+        `,
+        tool: `
+          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <rect x="30" y="30" width="60" height="60" rx="15" transform="rotate(45 60 60)" />
+            <circle class="filled" cx="60" cy="60" r="7" />
+            <path class="thin" d="M60 20V32M60 88V100M20 60H32M88 60H100" />
+          </svg>
+        `,
+        etc: `
+          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M24 36H96" />
+            <circle class="filled" cx="76" cy="36" r="8" />
+            <path d="M24 60H96" />
+            <circle class="filled" cx="48" cy="60" r="8" />
+            <path d="M24 84H96" />
+            <circle class="filled" cx="66" cy="84" r="8" />
+          </svg>
+        `
+      };
+
+      return icons[type] || icons.etc;
+    }
+
     function renderList(category = currentCategory) {
       currentCategory = category;
       const info = categoryInfo[category];
@@ -1028,7 +1087,7 @@
 
       itemList.innerHTML = items.map((item, index) => `
         <button class="item-card" data-id="${item.id}">
-          <div class="icon-badge ${info.icon}" aria-hidden="true"></div>
+          <div class="icon-badge ${info.icon}" aria-hidden="true">${iconSvg(info.icon)}</div>
           <div>
             <div class="item-name">${String(index + 1).padStart(2, "0")} · ${item.name}${item.qty ? ` <span style="font-size:.7em;color:rgba(255,255,255,.58);">${item.qty}</span>` : ""}</div>
             <div class="meta">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
