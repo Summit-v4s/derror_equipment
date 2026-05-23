@@ -1244,7 +1244,7 @@
       <div class="intro">
         <div class="kicker">RENTAL STUDIO / ANNEX SPACE</div>
         <h1>스튜디오 공간</h1>
-        <div class="copy">오류관과 오류별관으로 나누어 사용할 수 있는 촬영 공간과 포토존을 정리했습니다.</div>
+        <div class="copy">오류관, 오류별관, 호리존, 메이크업룸으로 구성된 스튜디오 공간을 정리했습니다.</div>
       </div>
 
       <div class="tabs">
@@ -1257,15 +1257,15 @@
       </div>
 
       <div class="space-subgrid">
-        <button class="space-card studio-branch-card" data-building="oryu-main">
+        <button class="space-card studio-branch-card" data-space="rental">
           <div class="space-thumb" data-label="오류관 대표 사진
 ./images/rental-room-main.jpg">
             <img src="./images/rental-room-main.jpg" alt="오류관 대표 이미지" />
           </div>
           <div>
             <div class="space-card-title">오류관</div>
-            <div class="space-card-meta"><span class="tag">대관실</span><span class="tag">호리존</span><span class="tag">메이크업룸</span></div>
-            <div class="space-card-copy">컨셉 대관실, 촬영용 호리존, 준비 공간을 함께 확인할 수 있는 메인 스튜디오 공간입니다.</div>
+            <div class="space-card-meta"><span class="tag">대관 가능</span><span class="tag">4개 포토존</span><span class="tag">컨셉 촬영</span></div>
+            <div class="space-card-copy">무대, 폴대, 소파, 카지노 테이블을 활용할 수 있는 컨셉 대관 공간입니다.</div>
           </div>
           <div class="arrow">›</div>
         </button>
@@ -1279,6 +1279,28 @@
             <div class="space-card-title">오류별관</div>
             <div class="space-card-meta"><span class="tag">남향</span><span class="tag">빈티지 룸</span><span class="tag">음악 소품</span></div>
             <div class="space-card-copy">따뜻한 자연광과 악기, 음반, 레트로 가구가 어우러진 빈티지 감성의 촬영 공간입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card studio-branch-card" data-space="horizon">
+          <div class="space-thumb" data-label="호리존 대표 사진
+./images/horizon-white.jpg"></div>
+          <div>
+            <div class="space-card-title">호리존</div>
+            <div class="space-card-meta"><span class="tag">275×250cm</span><span class="tag">배경지 선택</span><span class="tag">촬영 작업용</span></div>
+            <div class="space-card-copy">화이트, 크로마키, 블랙, 그레이 배경지를 선택할 수 있는 촬영용 호리존 구역입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card studio-branch-card" data-space="makeup">
+          <div class="space-thumb" data-label="메이크업룸 사진
+./images/makeup-room.jpg"></div>
+          <div>
+            <div class="space-card-title">메이크업룸</div>
+            <div class="space-card-meta"><span class="tag">준비 공간</span><span class="tag">헤어·메이크업</span><span class="tag">촬영 전 정비</span></div>
+            <div class="space-card-copy">촬영 전 헤어, 메이크업, 스타일링을 준비할 수 있는 공간입니다.</div>
           </div>
           <div class="arrow">›</div>
         </button>
@@ -1331,7 +1353,7 @@
 
     <section id="rentalPage" class="page">
       <header class="topline">
-        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
         <div class="pill">대관실</div>
       </header>
 
@@ -1481,7 +1503,7 @@
 
     <section id="horizonPage" class="page">
       <header class="topline">
-        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
         <div class="pill">호리존</div>
       </header>
 
@@ -1519,7 +1541,7 @@
 
     <section id="spaceSimplePage" class="page">
       <header class="topline">
-        <button class="space-back" data-space-back="oryu">‹ 오류관</button>
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
         <div id="simpleSpacePill" class="pill">SPACE</div>
       </header>
 
@@ -2026,7 +2048,7 @@
 
     document.querySelectorAll("[data-building]").forEach((button) => {
       button.addEventListener("click", () => {
-        if (button.dataset.building === "oryu-main") showOryuMain();
+        if (button.dataset.building === "oryu-main") showSpaceDetail("rental");
         if (button.dataset.building === "annex") showAnnex();
       });
     });
