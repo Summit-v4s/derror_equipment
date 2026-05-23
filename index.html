@@ -939,11 +939,17 @@
       border-radius: 30px;
     }
 
-    .space-photo img {
+    .space-photo img,
+    .space-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .space-thumb:has(img)::after,
+    .space-photo:has(img)::after {
+      content: none;
     }
 
     .space-caption {
@@ -1213,11 +1219,13 @@
 
       <div class="space-subgrid">
         <button class="space-card" data-space="rental">
-          <div class="space-thumb" data-label="대관실 대표 사진\n./images/rental-room-main.jpg"></div>
+          <div class="space-thumb" data-label="대관실 대표 사진\n./images/rental-room-main.jpg">
+            <img src="./images/rental-room-main.jpg" alt="대관실 대표 이미지" />
+          </div>
           <div>
             <div class="space-card-title">대관실</div>
-            <div class="space-card-meta"><span class="tag">대관 가능</span><span class="tag">포토존</span><span class="tag">컨셉 촬영</span></div>
-            <div class="space-card-copy">레드 커튼과 골드 소품을 활용한 컨셉 촬영 공간입니다.</div>
+            <div class="space-card-meta"><span class="tag">대관 가능</span><span class="tag">4개 포토존</span><span class="tag">컨셉 촬영</span></div>
+            <div class="space-card-copy">무대, 폴대, 소파, 카지노 테이블을 활용할 수 있는 컨셉 촬영 공간입니다.</div>
           </div>
           <div class="arrow">›</div>
         </button>
@@ -1264,27 +1272,59 @@
         <div>
           <div class="kicker">RENTAL STUDIO PHOTO ZONES</div>
           <div class="space-section-heading">대관실</div>
-          <div class="space-section-copy">레드 커튼, 골드 장식, 소품 테이블을 중심으로 무드가 강한 컨셉 촬영을 구성할 수 있는 공간입니다. 이용 가능한 포토존은 아래 사진과 설명으로 확인할 수 있습니다.</div>
+          <div class="space-section-copy">대관실은 무대 공간, 폴대, 샹들리에 & 소파, 카지노 테이블 & 룰렛으로 구성된 컨셉 촬영 공간입니다. 각 포토존은 촬영 콘셉트에 맞춰 단독 또는 조합해서 활용할 수 있습니다.</div>
         </div>
 
         <article class="space-photo-block">
-          <div class="space-photo" data-label="사진 영역\n./images/rental-room-01.jpg"></div>
-          <div class="space-caption"><div class="caption-number">01</div><div><div class="caption-title">레드 커튼 메인 포토존</div><div class="caption-copy">깊은 레드톤 커튼과 장식이 배경을 채워 누아르, 클래식, 드라마틱한 인물 촬영에 어울리는 메인 공간입니다.</div></div></div>
+          <div class="space-photo" data-label="무대 공간\n./images/rental-stage.jpg">
+            <img src="./images/rental-stage.jpg" alt="대관실 무대 공간" />
+          </div>
+          <div class="space-caption">
+            <div class="caption-number">01</div>
+            <div>
+              <div class="caption-title">무대 공간</div>
+              <div class="caption-copy">기타, 스탠드 마이크, 낮은 무대 조명을 활용해 공연, 밴드, 록/재즈, 누아르 계열의 인물 촬영을 구성하기 좋은 포토존입니다.</div>
+            </div>
+          </div>
         </article>
 
         <article class="space-photo-block">
-          <div class="space-photo" data-label="사진 영역\n./images/rental-room-02.jpg"></div>
-          <div class="space-caption"><div class="caption-number">02</div><div><div class="caption-title">소품 테이블 / 카지노 무드</div><div class="caption-copy">테이블, 소품, 낮은 조도를 활용해 와인, 카드, 빈티지 소품이 어울리는 스토리형 컷을 만들 수 있습니다.</div></div></div>
+          <div class="space-photo" data-label="폴대\n./images/rental-pole.jpg">
+            <img src="./images/rental-pole.jpg" alt="대관실 폴대 포토존" />
+          </div>
+          <div class="space-caption">
+            <div class="caption-number">02</div>
+            <div>
+              <div class="caption-title">폴대</div>
+              <div class="caption-copy">전신 포즈, 실루엣, 의자 소품과 함께 활용하기 좋은 포토존입니다. 움직임이 있는 컨셉이나 강한 포즈 연출에 어울립니다.</div>
+            </div>
+          </div>
         </article>
 
         <article class="space-photo-block">
-          <div class="space-photo" data-label="사진 영역\n./images/rental-room-03.jpg"></div>
-          <div class="space-caption"><div class="caption-number">03</div><div><div class="caption-title">스테이지 / 악기 포인트</div><div class="caption-copy">기타와 무대 느낌의 조명을 활용해 공연, 밴드, 록/재즈 컨셉의 인물 촬영을 구성하기 좋습니다.</div></div></div>
+          <div class="space-photo" data-label="샹들리에 & 소파\n./images/rental-sofa.jpg">
+            <img src="./images/rental-sofa.jpg" alt="대관실 샹들리에와 소파 포토존" />
+          </div>
+          <div class="space-caption">
+            <div class="caption-number">03</div>
+            <div>
+              <div class="caption-title">샹들리에 & 소파</div>
+              <div class="caption-copy">가죽 소파와 샹들리에를 중심으로 클래식 라운지, 빈티지, 드레스업 인물 촬영에 어울리는 차분한 무드의 포토존입니다.</div>
+            </div>
+          </div>
         </article>
 
         <article class="space-photo-block">
-          <div class="space-photo" data-label="사진 영역\n./images/rental-room-04.jpg"></div>
-          <div class="space-caption"><div class="caption-number">04</div><div><div class="caption-title">로우키 조명 연출</div><div class="caption-copy">공간 자체의 어두운 톤과 따뜻한 포인트 조명을 살려 고대비 인물, 실루엣, 무드 컷을 만들 수 있습니다.</div></div></div>
+          <div class="space-photo" data-label="카지노 테이블 & 룰렛\n./images/rental-casino.jpg">
+            <img src="./images/rental-casino.jpg" alt="대관실 카지노 테이블과 룰렛 포토존" />
+          </div>
+          <div class="space-caption">
+            <div class="caption-number">04</div>
+            <div>
+              <div class="caption-title">카지노 테이블 & 룰렛</div>
+              <div class="caption-copy">룰렛, 카드, 칩, 소품 테이블을 활용해 카지노, 갬블러, 빈티지 바, 스토리형 인물 촬영을 연출할 수 있는 포토존입니다.</div>
+            </div>
+          </div>
         </article>
       </div>
     </section>
