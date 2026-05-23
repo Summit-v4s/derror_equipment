@@ -1030,12 +1030,56 @@
           </svg>
         `,
         lens: `
-          <svg class="icon-svg" viewBox="0 0 120 120" aria-hidden="true">
-            <circle cx="60" cy="60" r="39" />
-            <circle cx="60" cy="60" r="24" />
-            <circle cx="60" cy="60" r="9" />
-            <path class="thin" d="M60 21V38M60 82V99M21 60H38M82 60H99" />
-            <path class="thin" d="M33 33L45 45M75 75L87 87M87 33L75 45M45 75L33 87" />
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M30 43H72C80 43 86 49 86 57V63C86 71 80 77 72 77H30C24 77 20 73 20 67V53C20 47 24 43 30 43Z" />
+            <path d="M31 43H72C80 43 86 49 86 57V63C86 71 80 77 72 77H31C25 77 21 73 21 67V53C21 47 25 43 31 43Z" />
+            <path class="thin" d="M40 44V76M61 43V77" />
+            <path d="M86 48H98C102 48 105 51 105 55V65C105 69 102 72 98 72H86" />
+            <path class="thin" d="M98 51V69" />
+          </svg>
+        `,
+        lensCompact: `
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M39 45H72C79 45 84 50 84 57V63C84 70 79 75 72 75H39C33 75 29 71 29 65V55C29 49 33 45 39 45Z" />
+            <path d="M39 45H72C79 45 84 50 84 57V63C84 70 79 75 72 75H39C33 75 29 71 29 65V55C29 49 33 45 39 45Z" />
+            <path class="thin" d="M50 46V74M67 45V75" />
+            <path d="M84 50H94C98 50 101 53 101 57V63C101 67 98 70 94 70H84" />
+          </svg>
+        `,
+        lensPrime: `
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M30 42H72C81 42 88 49 88 58V62C88 71 81 78 72 78H30C24 78 20 74 20 68V52C20 46 24 42 30 42Z" />
+            <path d="M30 42H72C81 42 88 49 88 58V62C88 71 81 78 72 78H30C24 78 20 74 20 68V52C20 46 24 42 30 42Z" />
+            <path class="thin" d="M39 43V77M58 42V78M74 44V76" />
+            <path d="M88 47H100C104 47 107 50 107 55V65C107 70 104 73 100 73H88" />
+            <path class="thin" d="M99 50V70" />
+          </svg>
+        `,
+        lensZoom: `
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M23 40H76C85 40 92 47 92 56V64C92 73 85 80 76 80H23C18 80 14 76 14 71V49C14 44 18 40 23 40Z" />
+            <path d="M23 40H76C85 40 92 47 92 56V64C92 73 85 80 76 80H23C18 80 14 76 14 71V49C14 44 18 40 23 40Z" />
+            <path class="thin" d="M30 41V79M47 40V80M65 41V79" />
+            <path d="M92 44H103C108 44 111 48 111 53V67C111 72 108 76 103 76H92" />
+            <path class="thin" d="M102 48V72" />
+          </svg>
+        `,
+        lensLong: `
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M14 38H69C78 38 85 45 85 54V66C85 75 78 82 69 82H14C10 82 7 79 7 75V45C7 41 10 38 14 38Z" />
+            <path d="M14 38H69C78 38 85 45 85 54V66C85 75 78 82 69 82H14C10 82 7 79 7 75V45C7 41 10 38 14 38Z" />
+            <path class="thin" d="M23 39V81M41 38V82M59 39V81" />
+            <path d="M85 42H104C110 42 114 47 114 53V67C114 73 110 78 104 78H85" />
+            <path class="thin" d="M101 45V75" />
+          </svg>
+        `,
+        lensFisheye: `
+          <svg class="icon-svg lens-side" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="soft-fill" d="M34 43H68C76 43 82 49 82 57V63C82 71 76 77 68 77H34C28 77 24 73 24 67V53C24 47 28 43 34 43Z" />
+            <path d="M34 43H68C76 43 82 49 82 57V63C82 71 76 77 68 77H34C28 77 24 73 24 67V53C24 47 28 43 34 43Z" />
+            <path class="thin" d="M45 44V76M63 43V77" />
+            <path d="M82 48C95 48 103 53 103 60C103 67 95 72 82 72" />
+            <path class="thin" d="M91 52C96 55 99 58 99 60C99 62 96 65 91 68" />
           </svg>
         `,
         light: `
@@ -1066,7 +1110,21 @@
         `
       };
 
-      return icons[type] || icons.etc;
+      return icons[type] || icons.lensPrime || icons.etc;
+    }
+
+    function iconTypeForItem(categoryIcon, item) {
+      if (categoryIcon !== "lens") return categoryIcon;
+
+      const name = (item.name || "").toLowerCase();
+      const tags = (item.tags || []).join(" ").toLowerCase();
+
+      if (name.includes("fisheye") || tags.includes("어안")) return "lensFisheye";
+      if (name.includes("100-400") || name.includes("35-150") || name.includes("135mm") || name.includes("vdslr")) return "lensLong";
+      if (name.includes("16-28") || name.includes("28-70") || name.includes("15-45") || tags.includes("zoom") || tags.includes("줌")) return "lensZoom";
+      if (name.includes("28mm f4.5") || name.includes("xcd 4/28") || name.includes("50mm f/1.8")) return "lensCompact";
+
+      return "lensPrime";
     }
 
     function renderList(category = currentCategory) {
@@ -1087,7 +1145,7 @@
 
       itemList.innerHTML = items.map((item, index) => `
         <button class="item-card" data-id="${item.id}">
-          <div class="icon-badge ${info.icon}" aria-hidden="true">${iconSvg(info.icon)}</div>
+          <div class="icon-badge ${info.icon} ${iconTypeForItem(info.icon, item)}" aria-hidden="true">${iconSvg(iconTypeForItem(info.icon, item))}</div>
           <div>
             <div class="item-name">${String(index + 1).padStart(2, "0")} · ${item.name}${item.qty ? ` <span style="font-size:.7em;color:rgba(255,255,255,.58);">${item.qty}</span>` : ""}</div>
             <div class="meta">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
