@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Studio Camera / Lens / Light Catalog</title>
   <style>
     :root {
@@ -212,7 +212,24 @@
     .item-list {
       height: 930px;
       overflow-y: auto;
-      padding-right: 8px;
+      padding: 34px 8px 34px 0;
+      scroll-padding: 34px 0;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        black 36px,
+        black calc(100% - 36px),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        black 36px,
+        black calc(100% - 36px),
+        transparent 100%
+      );
       display: grid;
       align-content: start;
       gap: 18px;
@@ -221,6 +238,12 @@
 
     .item-list::-webkit-scrollbar { width: 8px; }
     .item-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 999px; }
+
+    .item-list::before,
+    .item-list::after {
+      content: "";
+      pointer-events: none;
+    }
 
     .item-card {
       width: 100%;
@@ -777,27 +800,21 @@
       html,
       body {
         width: 100%;
-        height: 100%;
-        min-height: 100%;
-        margin: 0;
+        min-height: 100dvh;
         overflow: hidden;
-        background: #070914;
       }
 
       body {
         display: block;
-        position: fixed;
-        inset: 0;
-        overscroll-behavior: none;
+        background: #070914;
       }
 
       .story {
         position: fixed;
-        top: var(--vv-center-y, 50vh);
-        left: var(--vv-center-x, 50vw);
-        transform-origin: center center;
-        transform: translate(-50%, -50%) scale(var(--app-scale, calc(100vw / 1080)));
-        will-change: transform;
+        top: 0;
+        left: 50%;
+        transform-origin: top center;
+        transform: translateX(-50%) scale(var(--app-scale, calc(100vw / 1080)));
       }
     }
   </style>
@@ -1104,46 +1121,16 @@
       }
     });
 
-    function getViewportMetrics() {
-      const viewport = window.visualViewport;
-      const width = viewport ? viewport.width : (document.documentElement.clientWidth || window.innerWidth);
-      const height = viewport ? viewport.height : (document.documentElement.clientHeight || window.innerHeight);
-      const offsetLeft = viewport ? viewport.offsetLeft : 0;
-      const offsetTop = viewport ? viewport.offsetTop : 0;
-
-      return { width, height, offsetLeft, offsetTop };
-    }
-
     function fitStoryToViewport() {
-      const { width, height, offsetLeft, offsetTop } = getViewportMetrics();
-      const widthScale = width / 1080;
-      const heightScale = height / 1920;
-      const scale = Math.min(widthScale, heightScale, 1);
-      const root = document.documentElement;
-
-      root.style.setProperty("--app-scale", String(scale));
-      root.style.setProperty("--vv-center-x", `${offsetLeft + width / 2}px`);
-      root.style.setProperty("--vv-center-y", `${offsetTop + height / 2}px`);
+      const widthScale = window.innerWidth / 1080;
+      const heightScale = window.innerHeight / 1920;
+      const scale = Math.min(widthScale, heightScale);
+      document.documentElement.style.setProperty("--app-scale", scale);
     }
 
-    function scheduleFitStoryToViewport() {
-      requestAnimationFrame(fitStoryToViewport);
-      requestAnimationFrame(() => requestAnimationFrame(fitStoryToViewport));
-      setTimeout(fitStoryToViewport, 100);
-      setTimeout(fitStoryToViewport, 350);
-      setTimeout(fitStoryToViewport, 900);
-    }
-
-    window.addEventListener("load", scheduleFitStoryToViewport);
-    window.addEventListener("resize", scheduleFitStoryToViewport);
-    window.addEventListener("orientationchange", scheduleFitStoryToViewport);
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", scheduleFitStoryToViewport);
-      window.visualViewport.addEventListener("scroll", scheduleFitStoryToViewport);
-    }
-
-    scheduleFitStoryToViewport();
+    window.addEventListener("resize", fitStoryToViewport);
+    window.addEventListener("orientationchange", fitStoryToViewport);
+    fitStoryToViewport();
 
     renderList("camera");
   </script>
