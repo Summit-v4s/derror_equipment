@@ -1582,7 +1582,9 @@
     }
 
     function setActiveTab(category) {
-      setActiveTab(category);
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.category === category);
+      });
     }
 
     function showStudioHome(updateUrl = false) {
