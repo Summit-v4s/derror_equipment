@@ -1068,6 +1068,114 @@
       border-color: rgba(255,255,255,0.06) !important;
     }
 
+
+
+    /* Refined category list layout */
+    #listPage > .topline {
+      display: none;
+    }
+
+    #spacePage > .intro,
+    #listPage > .intro {
+      display: block;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    #spacePage .kicker,
+    #listPage .kicker {
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      gap: 8px;
+      color: rgba(255,255,255,0.92);
+    }
+
+    #spacePage .kicker::before,
+    #listPage .kicker::before {
+      width: 18px;
+      height: 2px;
+      background: rgba(255,255,255,0.92);
+    }
+
+    #spacePage h1,
+    #listPage h1 {
+      font-size: 48px;
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+      margin: 0;
+    }
+
+    #spacePage .copy,
+    #listPage .copy {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.45;
+      max-width: 610px;
+      color: rgba(255,255,255,0.74);
+    }
+
+    #spacePage .tabs,
+    #listPage .tabs {
+      margin-top: 22px;
+    }
+
+    .tab-button.active {
+      color: #f1c98e;
+      border-color: rgba(241,201,142,0.82);
+      background:
+        linear-gradient(180deg, rgba(59,90,73,0.96), rgba(31,59,47,0.96));
+      box-shadow:
+        inset 0 0 0 1px rgba(255,225,170,0.20),
+        0 0 0 1px rgba(0,0,0,0.20),
+        0 12px 40px rgba(0,0,0,0.22);
+    }
+
+    #listPage .summary-strip {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      min-height: 46px;
+    }
+
+    #listPage .summary-box {
+      display: none;
+    }
+
+    #listPage .summary-box:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      width: 142px;
+      min-height: 46px;
+      padding: 8px 14px;
+      border-radius: 18px;
+      text-align: left;
+      background: rgba(255,255,255,0.058);
+      border-color: rgba(241,201,142,0.26);
+    }
+
+    #listPage .summary-label {
+      font-size: 14px;
+      margin-bottom: 0;
+      color: rgba(255,255,255,0.54);
+      white-space: nowrap;
+    }
+
+    #listPage .summary-value {
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    #listPage .item-list {
+      margin-top: 8px;
+    }
+
     @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
     @keyframes ringIn { to { opacity: 1; transform: scale(1) rotate(0); } }
     @keyframes fadeIn { to { opacity: 1; } }
@@ -1819,7 +1927,7 @@
         document.documentElement.style.setProperty(variable, `${height}px`);
       };
 
-      setHeight(".item-list", "--item-list-height", 72, 640);
+      setHeight(".item-list", "--item-list-height", 40, 640);
       setHeight(".space-subgrid", "--space-subgrid-height", 72, 760);
       setHeight(".page.active .space-blog-scroll", "--space-blog-height", 72, 900);
     }
