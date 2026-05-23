@@ -774,8 +774,25 @@
     }
 
     @media screen and (max-width: 1100px) {
-      body { place-items: start center; }
-      .story { transform-origin: top center; transform: scale(calc(100vw / 1080)); }
+      html,
+      body {
+        width: 100%;
+        min-height: 100dvh;
+        overflow: hidden;
+      }
+
+      body {
+        display: block;
+        background: #070914;
+      }
+
+      .story {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform-origin: top center;
+        transform: translateX(-50%) scale(var(--app-scale, calc(100vw / 1080)));
+      }
     }
   </style>
 </head>
@@ -1080,6 +1097,17 @@
         finishTransition();
       }
     });
+
+    function fitStoryToViewport() {
+      const widthScale = window.innerWidth / 1080;
+      const heightScale = window.innerHeight / 1920;
+      const scale = Math.min(widthScale, heightScale);
+      document.documentElement.style.setProperty("--app-scale", scale);
+    }
+
+    window.addEventListener("resize", fitStoryToViewport);
+    window.addEventListener("orientationchange", fitStoryToViewport);
+    fitStoryToViewport();
 
     renderList("camera");
   </script>
