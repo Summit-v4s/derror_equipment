@@ -960,6 +960,20 @@
       margin-top: 22px;
     }
 
+    .space-photo-block.no-photo {
+      padding: 34px;
+    }
+
+    .space-photo-block.no-photo .space-photo {
+      display: none;
+    }
+
+    .space-photo-block.no-photo .space-caption {
+      margin-top: 0;
+      align-items: center;
+    }
+
+
     .caption-number {
       width: 68px;
       height: 68px;
@@ -1203,7 +1217,7 @@
 
     <section id="spacePage" class="page">
       <div class="intro">
-        <div class="kicker">RENTAL STUDIO / CYCLORAMA / DRESSING ROOM</div>
+        <div class="kicker">RENTAL STUDIO / CYCLORAMA / MAKEUP ROOM</div>
         <h1>스튜디오 공간</h1>
         <div class="copy">촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 정리했습니다.</div>
       </div>
@@ -1250,15 +1264,7 @@
           <div class="arrow">›</div>
         </button>
 
-        <button class="space-card" data-space="dressing">
-          <div class="space-thumb" data-label="탈의실 사진\n./images/dressing-room.jpg"></div>
-          <div>
-            <div class="space-card-title">탈의실</div>
-            <div class="space-card-meta"><span class="tag">준비 공간</span><span class="tag">의상 교체</span><span class="tag">프라이빗</span></div>
-            <div class="space-card-copy">의상 교체와 촬영 준비를 위한 별도 준비 공간입니다.</div>
-          </div>
-          <div class="arrow">›</div>
-        </button>
+
       </div>
     </section>
 
@@ -1273,6 +1279,10 @@
           <div class="kicker">RENTAL STUDIO PHOTO ZONES</div>
           <div class="space-section-heading">대관실</div>
           <div class="space-section-copy">대관실은 무대 공간, 폴대, 샹들리에 & 소파, 카지노 테이블 & 룰렛으로 구성된 컨셉 촬영 공간입니다. 각 포토존은 촬영 콘셉트에 맞춰 단독 또는 조합해서 활용할 수 있습니다.</div>
+        </div>
+
+        <div class="notice-box">
+          <strong>탈의실 안내</strong><br />대관실 이용 시 의상 교체와 간단한 촬영 준비를 위한 탈의실을 함께 사용할 수 있습니다.
         </div>
 
         <article class="space-photo-block">
@@ -1380,7 +1390,7 @@
           <div id="simpleSpaceCopy" class="space-section-copy">촬영 준비를 위한 보조 공간입니다.</div>
         </div>
 
-        <article class="space-photo-block">
+        <article id="simpleSpacePhotoBlock" class="space-photo-block">
           <div id="simpleSpacePhoto" class="space-photo" data-label="사진 영역"></div>
           <div class="space-caption"><div class="caption-number">01</div><div><div id="simpleSpaceCaptionTitle" class="caption-title">공간 안내</div><div id="simpleSpaceCaptionCopy" class="caption-copy">추후 실제 사진과 함께 상세 안내를 추가할 수 있습니다.</div></div></div>
         </article>
@@ -1441,7 +1451,7 @@
 
   <script>
     const categoryInfo = {
-      studio: { title: "스튜디오", kicker: "RENTAL STUDIO / CYCLORAMA / DRESSING ROOM", headline: "스튜디오 공간", copy: "촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 확인할 수 있습니다.", system: "RENTAL / CYCLORAMA", use: "SPACE GUIDE", icon: "studio" },
+      studio: { title: "스튜디오", kicker: "RENTAL STUDIO / CYCLORAMA / MAKEUP ROOM", headline: "스튜디오 공간", copy: "촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 확인할 수 있습니다.", system: "RENTAL / CYCLORAMA", use: "SPACE GUIDE", icon: "studio" },
       camera: { title: "카메라", kicker: "CAMERA BODY / VIDEO", headline: "카메라", copy: "스튜디오에서 사용할 수 있는 카메라를 촬영 용도와 핵심 특징 중심으로 정리했습니다.", system: "FE / X / L", use: "PHOTO + VIDEO", icon: "camera" },
       lens: { title: "렌즈", kicker: "LENS / FOCAL LENGTH / MOUNT", headline: "렌즈", copy: "보유 렌즈를 마운트, 화각, 조리개, 추천 촬영 용도 중심으로 확인할 수 있습니다.", system: "FE / X / XCD / EF", use: "PORTRAIT + DETAIL", icon: "lens" },
       light: { title: "조명", kicker: "CONTINUOUS / STROBE / FLASH", headline: "조명", copy: "지속광, 스트로브, 스피드라이트를 출력과 색 표현, 추천 용도 중심으로 정리했습니다.", system: "LED / STROBE / FLASH", use: "PHOTO + VIDEO", icon: "light" },
@@ -1548,6 +1558,7 @@
     const simpleSpaceTitle = document.getElementById("simpleSpaceTitle");
     const simpleSpaceCopy = document.getElementById("simpleSpaceCopy");
     const simpleSpacePhoto = document.getElementById("simpleSpacePhoto");
+    const simpleSpacePhotoBlock = document.getElementById("simpleSpacePhotoBlock");
     const simpleSpaceCaptionTitle = document.getElementById("simpleSpaceCaptionTitle");
     const simpleSpaceCaptionCopy = document.getElementById("simpleSpaceCaptionCopy");
 
@@ -1824,15 +1835,6 @@
           photo: "메이크업룸 사진\n./images/makeup-room.jpg",
           captionTitle: "촬영 전 준비 공간",
           captionCopy: "모델과 스태프가 촬영 전 메이크업, 헤어, 의상 스타일링을 정리하는 공간입니다."
-        },
-        dressing: {
-          pill: "탈의실",
-          kicker: "DRESSING ROOM",
-          title: "탈의실",
-          copy: "의상 교체와 촬영 준비를 위한 프라이빗한 보조 공간입니다. 실제 사진과 상세 안내는 추후 추가할 수 있습니다.",
-          photo: "탈의실 사진\n./images/dressing-room.jpg",
-          captionTitle: "의상 준비 공간",
-          captionCopy: "촬영 중 의상 교체와 개인 정비를 위한 공간입니다."
         }
       }[space];
 
@@ -1841,7 +1843,13 @@
       simpleSpaceKicker.textContent = details.kicker;
       simpleSpaceTitle.textContent = details.title;
       simpleSpaceCopy.textContent = details.copy;
-      simpleSpacePhoto.setAttribute("data-label", details.photo);
+      if (details.photo) {
+        simpleSpacePhotoBlock.classList.remove("no-photo");
+        simpleSpacePhoto.setAttribute("data-label", details.photo);
+      } else {
+        simpleSpacePhotoBlock.classList.add("no-photo");
+        simpleSpacePhoto.removeAttribute("data-label");
+      }
       simpleSpaceCaptionTitle.textContent = details.captionTitle;
       simpleSpaceCaptionCopy.textContent = details.captionCopy;
       show("simpleSpace");
