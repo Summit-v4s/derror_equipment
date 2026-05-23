@@ -158,17 +158,17 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
       margin-top: 42px;
     }
 
     .tab-button {
       min-height: 88px;
       border-radius: 999px;
-      font-size: 24px;
+      font-size: 21px;
       font-weight: 850;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.04em;
       color: rgba(255,255,255,0.76);
     }
 
@@ -804,6 +804,268 @@
     .style-flash .transition-label { color: #ffffff; }
     .style-flash .transition-title { text-transform: uppercase; letter-spacing: -0.07em; }
 
+
+    .space-subgrid {
+      height: 1030px;
+      overflow-y: auto;
+      padding: 34px 8px 34px 0;
+      scroll-padding: 34px 0;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+      display: grid;
+      align-content: start;
+      gap: 22px;
+      margin-top: 44px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 38px, black calc(100% - 38px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, black 38px, black calc(100% - 38px), transparent 100%);
+    }
+
+    .space-card {
+      width: 100%;
+      min-height: 285px;
+      border-radius: 42px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255,180,90,0.16), transparent 28%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.045));
+      backdrop-filter: blur(18px);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 250px 1fr 36px;
+      gap: 32px;
+      align-items: center;
+      text-align: left;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.20);
+    }
+
+    .space-card:hover,
+    .horizon-color-button:hover,
+    .space-back:hover {
+      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.12));
+    }
+
+    .space-thumb,
+    .space-photo {
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255,255,255,0.18), transparent 28%),
+        linear-gradient(145deg, rgba(84,212,255,0.16), rgba(255,90,200,0.10));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .space-thumb {
+      width: 250px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .space-thumb::after,
+    .space-photo::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      color: rgba(255,255,255,0.52);
+      font-size: 20px;
+      line-height: 1.38;
+      word-break: keep-all;
+    }
+
+    .space-card-title {
+      font-size: 46px;
+      font-weight: 930;
+      letter-spacing: -0.06em;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      word-break: keep-all;
+    }
+
+    .space-card-copy {
+      font-size: 27px;
+      line-height: 1.45;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .space-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .space-back {
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.075);
+      backdrop-filter: blur(18px);
+      font-size: 24px;
+      white-space: nowrap;
+    }
+
+    .space-blog-scroll {
+      height: 1490px;
+      overflow-y: auto;
+      padding: 34px 8px 34px 0;
+      margin-top: 34px;
+      display: grid;
+      gap: 30px;
+      align-content: start;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 38px, black calc(100% - 38px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, black 38px, black calc(100% - 38px), transparent 100%);
+    }
+
+    .space-section-heading {
+      margin-top: 30px;
+      font-size: 76px;
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+      font-weight: 940;
+      word-break: keep-all;
+    }
+
+    .space-section-copy {
+      margin-top: 20px;
+      font-size: 30px;
+      line-height: 1.48;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .space-photo-block {
+      border-radius: 42px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(18px);
+      padding: 24px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+    }
+
+    .space-photo {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 30px;
+    }
+
+    .space-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .space-caption {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 20px;
+      align-items: start;
+      margin-top: 22px;
+    }
+
+    .caption-number {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 28px;
+      font-weight: 920;
+    }
+
+    .caption-title {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+
+    .caption-copy {
+      font-size: 26px;
+      line-height: 1.45;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .horizon-spec-card {
+      border-radius: 42px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(84,212,255,0.12), rgba(255,90,200,0.08));
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .horizon-stat {
+      border-radius: 28px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 24px;
+    }
+
+    .horizon-stat-label {
+      font-size: 22px;
+      color: var(--muted);
+      font-weight: 750;
+      margin-bottom: 10px;
+    }
+
+    .horizon-stat-value {
+      font-size: 40px;
+      font-weight: 920;
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+      word-break: keep-all;
+    }
+
+    .horizon-colors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .horizon-color-button {
+      min-height: 76px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.075);
+      color: rgba(255,255,255,0.78);
+      font-size: 23px;
+      font-weight: 850;
+    }
+
+    .horizon-color-button.active {
+      color: white;
+      border-color: rgba(84,212,255,0.55);
+      background: linear-gradient(135deg, rgba(84,212,255,0.24), rgba(255,90,200,0.14));
+    }
+
+    .horizon-photo.white { background: linear-gradient(145deg, #f3f3f5, #c9cbd2); }
+    .horizon-photo.chromakey { background: linear-gradient(145deg, #1fe455, #078e2e); }
+    .horizon-photo.black { background: linear-gradient(145deg, #1c1c22, #050507); }
+    .horizon-photo.gray { background: linear-gradient(145deg, #8a8d96, #444852); }
+
+    .notice-box {
+      border-radius: 32px;
+      border: 1px solid rgba(255,180,90,0.28);
+      background: rgba(255,180,90,0.09);
+      padding: 26px 28px;
+      font-size: 26px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.80);
+      word-break: keep-all;
+    }
+
     @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
     @keyframes ringIn { to { opacity: 1; transform: scale(1) rotate(0); } }
     @keyframes fadeIn { to { opacity: 1; } }
@@ -858,6 +1120,164 @@
       <div class="transition-ring"></div>
     </div>
 
+
+    <section id="spacePage" class="page">
+      <header class="topline">
+        <div class="brand">STUDIO SPACE</div>
+        <div class="pill">SPACE</div>
+      </header>
+
+      <div class="intro">
+        <div class="kicker">RENTAL ROOM / HORIZON / MAKEUP</div>
+        <h1>스튜디오 공간</h1>
+        <div class="copy">촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 정리했습니다.</div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button active" data-category="studio">스튜디오</button>
+        <button class="tab-button" data-category="camera">카메라</button>
+        <button class="tab-button" data-category="lens">렌즈</button>
+        <button class="tab-button" data-category="light">조명</button>
+        <button class="tab-button" data-category="tool">라이팅툴</button>
+        <button class="tab-button" data-category="etc">ETC</button>
+      </div>
+
+      <div class="space-subgrid">
+        <button class="space-card" data-space="rental">
+          <div class="space-thumb" data-label="대관실 대표 사진\n./images/rental-room-main.jpg"></div>
+          <div>
+            <div class="space-card-title">대관실</div>
+            <div class="space-card-meta"><span class="tag">포토존</span><span class="tag">컨셉 촬영</span><span class="tag">16:9 사진</span></div>
+            <div class="space-card-copy">레드 커튼과 소품이 있는 컨셉 공간입니다. 내부 포토존을 사진과 짧은 설명으로 확인할 수 있습니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card" data-space="horizon">
+          <div class="space-thumb" data-label="호리존 대표 사진\n./images/horizon-white.jpg"></div>
+          <div>
+            <div class="space-card-title">호리존</div>
+            <div class="space-card-meta"><span class="tag">275×250cm</span><span class="tag">배경지 선택</span><span class="tag">대관 구역 아님</span></div>
+            <div class="space-card-copy">화이트, 크로마키, 블랙, 그레이 배경지를 선택할 수 있는 촬영용 호리존 구역입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card" data-space="makeup">
+          <div class="space-thumb" data-label="메이크업룸 사진\n./images/makeup-room.jpg"></div>
+          <div>
+            <div class="space-card-title">메이크업룸</div>
+            <div class="space-card-meta"><span class="tag">준비 공간</span><span class="tag">헤어/메이크업</span></div>
+            <div class="space-card-copy">촬영 전 헤어, 메이크업, 스타일링을 준비할 수 있는 공간입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+
+        <button class="space-card" data-space="dressing">
+          <div class="space-thumb" data-label="탈의실 사진\n./images/dressing-room.jpg"></div>
+          <div>
+            <div class="space-card-title">탈의실</div>
+            <div class="space-card-meta"><span class="tag">의상 준비</span><span class="tag">프라이빗 공간</span></div>
+            <div class="space-card-copy">의상 교체와 촬영 준비를 위한 별도 준비 공간입니다.</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+      </div>
+    </section>
+
+    <section id="rentalPage" class="page">
+      <header class="topline">
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <div class="pill">대관실</div>
+      </header>
+
+      <div class="space-blog-scroll">
+        <div>
+          <div class="kicker">RENTAL ROOM PHOTO ZONES</div>
+          <div class="space-section-heading">대관실</div>
+          <div class="space-section-copy">레드 커튼, 골드 장식, 소품 테이블을 중심으로 무드가 강한 컨셉 촬영을 구성할 수 있는 공간입니다. 사진은 추후 실제 촬영본으로 교체하면 됩니다.</div>
+        </div>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="사진 영역\n./images/rental-room-01.jpg"></div>
+          <div class="space-caption"><div class="caption-number">01</div><div><div class="caption-title">레드 커튼 메인 포토존</div><div class="caption-copy">깊은 레드톤 커튼과 장식이 배경을 채워 누아르, 클래식, 드라마틱한 인물 촬영에 어울리는 메인 공간입니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="사진 영역\n./images/rental-room-02.jpg"></div>
+          <div class="space-caption"><div class="caption-number">02</div><div><div class="caption-title">소품 테이블 / 카지노 무드</div><div class="caption-copy">테이블, 소품, 낮은 조도를 활용해 와인, 카드, 빈티지 소품이 어울리는 스토리형 컷을 만들 수 있습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="사진 영역\n./images/rental-room-03.jpg"></div>
+          <div class="space-caption"><div class="caption-number">03</div><div><div class="caption-title">스테이지 / 악기 포인트</div><div class="caption-copy">기타와 무대 느낌의 조명을 활용해 공연, 밴드, 록/재즈 컨셉의 인물 촬영을 구성하기 좋습니다.</div></div></div>
+        </article>
+
+        <article class="space-photo-block">
+          <div class="space-photo" data-label="사진 영역\n./images/rental-room-04.jpg"></div>
+          <div class="space-caption"><div class="caption-number">04</div><div><div class="caption-title">로우키 조명 연출</div><div class="caption-copy">공간 자체의 어두운 톤과 따뜻한 포인트 조명을 살려 고대비 인물, 실루엣, 무드 컷을 만들 수 있습니다.</div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="horizonPage" class="page">
+      <header class="topline">
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <div class="pill">호리존</div>
+      </header>
+
+      <div class="space-blog-scroll">
+        <div>
+          <div class="kicker">HORIZON / BACKDROP SYSTEM</div>
+          <div class="space-section-heading">호리존</div>
+          <div class="space-section-copy">배경지 색상을 선택해 사용할 수 있는 촬영용 호리존 구역입니다. 호리존은 별도의 대관 구역이 아닌 촬영 세팅용 공간입니다.</div>
+        </div>
+
+        <div class="horizon-spec-card">
+          <div class="horizon-stat"><div class="horizon-stat-label">호리존 사이즈</div><div class="horizon-stat-value">275 × 250cm</div></div>
+          <div class="horizon-stat"><div class="horizon-stat-label">운영 구분</div><div class="horizon-stat-value">대관 구역 아님</div></div>
+        </div>
+
+        <div class="space-photo-block">
+          <div id="horizonVisual" class="space-photo horizon-photo white" data-label="화이트 배경지\n./images/horizon-white.jpg"></div>
+          <div class="horizon-colors">
+            <button class="horizon-color-button active" data-horizon="white">화이트</button>
+            <button class="horizon-color-button" data-horizon="chromakey">크로마키</button>
+            <button class="horizon-color-button" data-horizon="black">블랙</button>
+            <button class="horizon-color-button" data-horizon="gray">그레이</button>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          평상시 호리존 설치 조명으로는 <strong>Nanlite FS-300C + Godox SB80×120 2세트</strong>, <strong>Nanlite FC-720C</strong>, <strong>Nanlite PavoTube II 30X 2세트</strong>가 구비되어 있습니다.
+        </div>
+
+        <div class="notice-box">
+          호리존은 촬영 세팅을 위한 공간이며, 독립적인 대관 구역으로 운영되지 않습니다.
+        </div>
+      </div>
+    </section>
+
+    <section id="spaceSimplePage" class="page">
+      <header class="topline">
+        <button class="space-back" data-space-back="home">‹ 스튜디오 공간</button>
+        <div id="simpleSpacePill" class="pill">SPACE</div>
+      </header>
+
+      <div class="space-blog-scroll">
+        <div>
+          <div id="simpleSpaceKicker" class="kicker">SPACE</div>
+          <div id="simpleSpaceTitle" class="space-section-heading">공간</div>
+          <div id="simpleSpaceCopy" class="space-section-copy">촬영 준비를 위한 보조 공간입니다.</div>
+        </div>
+
+        <article class="space-photo-block">
+          <div id="simpleSpacePhoto" class="space-photo" data-label="사진 영역"></div>
+          <div class="space-caption"><div class="caption-number">01</div><div><div id="simpleSpaceCaptionTitle" class="caption-title">공간 안내</div><div id="simpleSpaceCaptionCopy" class="caption-copy">추후 실제 사진과 함께 상세 안내를 추가할 수 있습니다.</div></div></div>
+        </article>
+      </div>
+    </section>
+
     <section id="listPage" class="page active">
       <header class="topline">
         <div class="brand">STUDIO EQUIPMENT</div>
@@ -871,7 +1291,8 @@
       </div>
 
       <div class="tabs">
-        <button class="tab-button active" data-category="camera">카메라</button>
+        <button class="tab-button active" data-category="studio">스튜디오</button>
+        <button class="tab-button" data-category="camera">카메라</button>
         <button class="tab-button" data-category="lens">렌즈</button>
         <button class="tab-button" data-category="light">조명</button>
         <button class="tab-button" data-category="tool">라이팅툴</button>
@@ -917,6 +1338,7 @@
 
   <script>
     const categoryInfo = {
+      studio: { title: "스튜디오", kicker: "STUDIO SPACE / PHOTO ZONE", headline: "스튜디오 공간", copy: "촬영 목적에 따라 사용할 수 있는 주요 공간과 포토존, 호리존, 준비 공간을 확인할 수 있습니다.", system: "RENTAL / HORIZON", use: "SPACE GUIDE", icon: "studio" },
       camera: { title: "카메라", kicker: "CAMERA BODY / VIDEO", headline: "카메라", copy: "스튜디오에서 사용할 수 있는 카메라를 촬영 용도와 핵심 특징 중심으로 정리했습니다.", system: "FE / X / L", use: "PHOTO + VIDEO", icon: "camera" },
       lens: { title: "렌즈", kicker: "LENS / FOCAL LENGTH / MOUNT", headline: "렌즈", copy: "보유 렌즈를 마운트, 화각, 조리개, 추천 촬영 용도 중심으로 확인할 수 있습니다.", system: "FE / X / XCD / EF", use: "PORTRAIT + DETAIL", icon: "lens" },
       light: { title: "조명", kicker: "CONTINUOUS / STROBE / FLASH", headline: "조명", copy: "지속광, 스트로브, 스피드라이트를 출력과 색 표현, 추천 용도 중심으로 정리했습니다.", system: "LED / STROBE / FLASH", use: "PHOTO + VIDEO", icon: "light" },
@@ -1021,17 +1443,32 @@
     const transitionSub = document.getElementById("transitionSub");
     const transitionContinue = document.getElementById("transitionContinue");
     const transitionBack = document.getElementById("transitionBack");
+    const simpleSpacePill = document.getElementById("simpleSpacePill");
+    const simpleSpaceKicker = document.getElementById("simpleSpaceKicker");
+    const simpleSpaceTitle = document.getElementById("simpleSpaceTitle");
+    const simpleSpaceCopy = document.getElementById("simpleSpaceCopy");
+    const simpleSpacePhoto = document.getElementById("simpleSpacePhoto");
+    const simpleSpaceCaptionTitle = document.getElementById("simpleSpaceCaptionTitle");
+    const simpleSpaceCaptionCopy = document.getElementById("simpleSpaceCaptionCopy");
 
-    let currentCategory = "camera";
+    let currentCategory = "studio";
     let currentIndex = 0;
     let pendingDetailId = null;
     let transitionReady = false;
 
-    function activeItems() { return data[currentCategory]; }
+    function activeItems() { return data[currentCategory] || []; }
 
     function show(page) {
-      listPage.classList.toggle("active", page === "list");
-      detailPage.classList.toggle("active", page === "detail");
+      document.querySelectorAll(".page").forEach((section) => section.classList.remove("active"));
+      const target = {
+        list: listPage,
+        detail: detailPage,
+        space: document.getElementById("spacePage"),
+        rental: document.getElementById("rentalPage"),
+        horizon: document.getElementById("horizonPage"),
+        simpleSpace: document.getElementById("spaceSimplePage")
+      }[page];
+      if (target) target.classList.add("active");
       window.scrollTo(0, 0);
     }
 
@@ -1144,8 +1581,24 @@
       return "lensPrime";
     }
 
+    function setActiveTab(category) {
+      setActiveTab(category);
+    }
+
+    function showStudioHome(updateUrl = false) {
+      currentCategory = "studio";
+      if (updateUrl) history.replaceState(null, "", "#studio");
+      setActiveTab("studio");
+      show("space");
+    }
+
     function renderList(category = currentCategory, updateUrl = false) {
       currentCategory = category;
+
+      if (category === "studio") {
+        showStudioHome(updateUrl);
+        return;
+      }
 
       if (updateUrl) {
         history.replaceState(null, "", `#${category}`);
@@ -1153,7 +1606,7 @@
       const info = categoryInfo[category];
       const items = activeItems();
 
-      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.toggle("active", btn.dataset.category === category));
+      setActiveTab(category);
       topPill.textContent = info.title.toUpperCase();
       listKicker.textContent = info.kicker;
       listTitle.innerHTML = info.headline;
@@ -1247,6 +1700,80 @@
       show("detail");
     }
 
+
+    function showSpaceDetail(space) {
+      currentCategory = "studio";
+      setActiveTab("studio");
+
+      if (space === "rental") {
+        show("rental");
+        return;
+      }
+
+      if (space === "horizon") {
+        show("horizon");
+        return;
+      }
+
+      const details = {
+        makeup: {
+          pill: "메이크업룸",
+          kicker: "MAKEUP ROOM",
+          title: "메이크업룸",
+          copy: "촬영 전 헤어, 메이크업, 스타일링을 준비할 수 있는 공간입니다. 실제 공간 사진과 사용 안내는 추후 추가할 수 있습니다.",
+          photo: "메이크업룸 사진\n./images/makeup-room.jpg",
+          captionTitle: "촬영 전 준비 공간",
+          captionCopy: "모델과 스태프가 촬영 전 메이크업, 헤어, 의상 스타일링을 정리하는 공간입니다."
+        },
+        dressing: {
+          pill: "탈의실",
+          kicker: "DRESSING ROOM",
+          title: "탈의실",
+          copy: "의상 교체와 촬영 준비를 위한 프라이빗한 보조 공간입니다. 실제 사진과 상세 안내는 추후 추가할 수 있습니다.",
+          photo: "탈의실 사진\n./images/dressing-room.jpg",
+          captionTitle: "의상 준비 공간",
+          captionCopy: "촬영 중 의상 교체와 개인 정비를 위한 공간입니다."
+        }
+      }[space];
+
+      if (!details) return;
+      simpleSpacePill.textContent = details.pill;
+      simpleSpaceKicker.textContent = details.kicker;
+      simpleSpaceTitle.textContent = details.title;
+      simpleSpaceCopy.textContent = details.copy;
+      simpleSpacePhoto.setAttribute("data-label", details.photo);
+      simpleSpaceCaptionTitle.textContent = details.captionTitle;
+      simpleSpaceCaptionCopy.textContent = details.captionCopy;
+      show("simpleSpace");
+    }
+
+    function setHorizonColor(color) {
+      const horizonVisual = document.getElementById("horizonVisual");
+      const labels = {
+        white: "화이트 배경지\n./images/horizon-white.jpg",
+        chromakey: "크로마키 배경지\n./images/horizon-chromakey.jpg",
+        black: "블랙 배경지\n./images/horizon-black.jpg",
+        gray: "그레이 배경지\n./images/horizon-gray.jpg"
+      };
+      horizonVisual.className = `space-photo horizon-photo ${color}`;
+      horizonVisual.setAttribute("data-label", labels[color] || labels.white);
+      document.querySelectorAll(".horizon-color-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.horizon === color);
+      });
+    }
+
+    document.querySelectorAll("[data-space]").forEach((button) => {
+      button.addEventListener("click", () => showSpaceDetail(button.dataset.space));
+    });
+
+    document.querySelectorAll("[data-space-back]").forEach((button) => {
+      button.addEventListener("click", () => showStudioHome(false));
+    });
+
+    document.querySelectorAll(".horizon-color-button").forEach((button) => {
+      button.addEventListener("click", () => setHorizonColor(button.dataset.horizon));
+    });
+
     document.querySelectorAll(".tab-button").forEach(button => {
       button.addEventListener("click", () => renderList(button.dataset.category, true));
     });
@@ -1278,11 +1805,11 @@
       const hashCategory = window.location.hash.replace("#", "");
       const requestedCategory = categoryFromQuery || hashCategory;
 
-      if (requestedCategory && data[requestedCategory]) {
+      if (requestedCategory && categoryInfo[requestedCategory]) {
         return requestedCategory;
       }
 
-      return "camera";
+      return "studio";
     }
 
     window.addEventListener("hashchange", () => {
