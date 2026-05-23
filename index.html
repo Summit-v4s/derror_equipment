@@ -6,17 +6,17 @@
   <title>Studio Camera / Lens / Light Catalog</title>
   <style>
     :root {
-      --bg: #070914;
-      --bg-2: #101527;
-      --panel: rgba(255,255,255,0.075);
-      --panel-strong: rgba(255,255,255,0.13);
+      --bg: #050505;
+      --bg-2: #101010;
+      --panel: rgba(255,255,255,0.07);
+      --panel-strong: rgba(255,255,255,0.115);
       --line: rgba(255,255,255,0.16);
-      --text: #f7f7fb;
-      --muted: #aab0c4;
-      --accent: #54d4ff;
-      --accent-2: #ff5ac8;
-      --warm: #ffb45a;
-      --green: #7cffb1;
+      --text: #f7f7f7;
+      --muted: #b8b8b8;
+      --accent: #f4f4f4;
+      --accent-2: #9a9a9a;
+      --warm: #e8e8e8;
+      --green: #d7d7d7;
     }
 
     * { box-sizing: border-box; }
@@ -24,7 +24,7 @@
     html, body {
       margin: 0;
       min-height: 100%;
-      background: #151722;
+      background: #050505;
       font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
     }
@@ -47,11 +47,7 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 14% 9%, rgba(84,212,255,0.34), transparent 28%),
-        radial-gradient(circle at 88% 18%, rgba(255,90,200,0.24), transparent 32%),
-        radial-gradient(circle at 58% 94%, rgba(255,180,90,0.22), transparent 30%),
-        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 56%, #070914 100%);
+      background: #050505;
       padding: 74px 70px 64px;
     }
 
@@ -115,7 +111,7 @@
     .transition-back:hover,
     .transition-continue:hover,
     .detail-nav-button:hover {
-      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.12));
+      background: rgba(255,255,255,0.14);
     }
 
     .kicker {
@@ -135,7 +131,7 @@
       width: 52px;
       height: 4px;
       border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background: rgba(255,255,255,0.86);
     }
 
     .intro { margin-top: 54px; }
@@ -174,8 +170,8 @@
 
     .tab-button.active {
       color: white;
-      border-color: rgba(84,212,255,0.55);
-      background: linear-gradient(135deg, rgba(84,212,255,0.24), rgba(255,90,200,0.14));
+      border-color: rgba(255,255,255,0.42);
+      background: rgba(255,255,255,0.18);
     }
 
     .summary-strip {
@@ -210,7 +206,7 @@
     }
 
     .item-list {
-      height: 930px;
+      height: var(--item-list-height, 930px);
       overflow-y: auto;
       padding: 34px 8px 34px 0;
       scroll-padding: 34px 0;
@@ -261,9 +257,7 @@
       border-radius: 34px;
       display: grid;
       place-items: center;
-      background:
-        radial-gradient(circle at 34% 28%, rgba(255,255,255,0.22), transparent 24%),
-        linear-gradient(145deg, rgba(84,212,255,0.22), rgba(255,90,200,0.12));
+      background: #1a1a1a;
       border: 1px solid rgba(255,255,255,0.18);
       position: relative;
       overflow: hidden;
@@ -306,7 +300,7 @@
       height: 52px;
       border-radius: 50%;
       background: rgba(255,255,255,0.88);
-      box-shadow: 0 0 38px rgba(255,180,90,0.7), 0 0 80px rgba(84,212,255,0.32);
+      box-shadow: 0 0 38px rgba(255,255,255,0.42), 0 0 80px rgba(255,255,255,0.16);
     }
     .icon-badge.light::after {
       content: "";
@@ -357,10 +351,10 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: rgba(84,212,255,0.95);
+      background: rgba(255,255,255,0.95);
       box-shadow:
-        0 24px 0 rgba(255,90,200,0.88),
-        0 48px 0 rgba(255,180,90,0.82);
+        0 24px 0 rgba(210,210,210,0.88),
+        0 48px 0 rgba(160,160,160,0.82);
     }
 
 
@@ -442,10 +436,7 @@
       min-height: 375px;
       border-radius: 46px;
       border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 16% 20%, rgba(84,212,255,0.26), transparent 30%),
-        radial-gradient(circle at 82% 34%, rgba(255,90,200,0.18), transparent 28%),
-        linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+      background: rgba(255,255,255,0.08);
       box-shadow: 0 36px 100px rgba(0,0,0,0.36);
       padding: 46px;
       display: grid;
@@ -558,7 +549,7 @@
     .use-box {
       padding: 28px 32px;
       border-radius: 34px;
-      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.13));
+      background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.22);
       display: flex;
       gap: 24px;
@@ -718,7 +709,7 @@
       border-radius: 999px;
       opacity: 0;
     }
-    .transition-progress::before { content: ""; position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+    .transition-progress::before { content: ""; position: absolute; inset: 0; width: 0%; background: rgba(255,255,255,0.86); }
 
     .transition-ring {
       position: absolute;
@@ -806,7 +797,7 @@
 
 
     .space-subgrid {
-      height: 1030px;
+      height: var(--space-subgrid-height, 1030px);
       overflow-y: auto;
       padding: 34px 8px 34px 0;
       scroll-padding: 34px 0;
@@ -825,9 +816,7 @@
       min-height: 285px;
       border-radius: 42px;
       border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 12% 20%, rgba(255,180,90,0.16), transparent 28%),
-        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.045));
+      background: rgba(255,255,255,0.075);
       backdrop-filter: blur(18px);
       padding: 32px;
       display: grid;
@@ -841,16 +830,14 @@
     .space-card:hover,
     .horizon-color-button:hover,
     .space-back:hover {
-      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.12));
+      background: rgba(255,255,255,0.14);
     }
 
     .space-thumb,
     .space-photo {
       border-radius: 30px;
       border: 1px solid rgba(255,255,255,0.18);
-      background:
-        radial-gradient(circle at 32% 24%, rgba(255,255,255,0.18), transparent 28%),
-        linear-gradient(145deg, rgba(84,212,255,0.16), rgba(255,90,200,0.10));
+      background: #1a1a1a;
       overflow: hidden;
       position: relative;
     }
@@ -909,7 +896,7 @@
     }
 
     .space-blog-scroll {
-      height: 1490px;
+      height: var(--space-blog-height, 1490px);
       overflow-y: auto;
       padding: 34px 8px 34px 0;
       margin-top: 34px;
@@ -1046,8 +1033,8 @@
 
     .horizon-color-button.active {
       color: white;
-      border-color: rgba(84,212,255,0.55);
-      background: linear-gradient(135deg, rgba(84,212,255,0.24), rgba(255,90,200,0.14));
+      border-color: rgba(255,255,255,0.42);
+      background: rgba(255,255,255,0.18);
     }
 
     .horizon-photo.white { background: linear-gradient(145deg, #f3f3f5, #c9cbd2); }
@@ -1064,6 +1051,21 @@
       line-height: 1.45;
       color: rgba(255,255,255,0.80);
       word-break: keep-all;
+    }
+
+
+
+    /* Monochrome theme override */
+    .transition-layer,
+    .transition-layer[class*="style-"] {
+      background: #050505 !important;
+    }
+    .transition-label,
+    .transition-layer[class*="style-"] .transition-label {
+      color: rgba(255,255,255,0.88) !important;
+    }
+    .transition-ring {
+      border-color: rgba(255,255,255,0.06) !important;
     }
 
     @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
@@ -1092,16 +1094,17 @@
       }
 
       body {
-        display: block;
-        background: #070914;
+        display: grid;
+        place-items: center;
+        background: #050505;
       }
 
       .story {
         position: fixed;
-        top: 0;
+        top: 50%;
         left: 50%;
-        transform-origin: top center;
-        transform: translateX(-50%) scale(var(--app-scale, calc(100vw / 1080)));
+        transform-origin: center center;
+        transform: translate(-50%, -50%) scale(var(--app-scale, calc(100vw / 1080)));
       }
     }
   </style>
@@ -1122,11 +1125,6 @@
 
 
     <section id="spacePage" class="page">
-      <header class="topline">
-        <div class="brand">STUDIO SPACE</div>
-        <div class="pill">SPACE</div>
-      </header>
-
       <div class="intro">
         <div class="kicker">RENTAL STUDIO / CYCLORAMA / DRESSING ROOM</div>
         <h1>스튜디오 공간</h1>
@@ -1470,6 +1468,7 @@
       }[page];
       if (target) target.classList.add("active");
       window.scrollTo(0, 0);
+      scheduleScrollableFit();
     }
 
 
@@ -1790,16 +1789,64 @@
       }
     });
 
-    function fitStoryToViewport() {
-      const widthScale = window.innerWidth / 1080;
-      const heightScale = window.innerHeight / 1920;
-      const scale = Math.min(widthScale, heightScale);
-      document.documentElement.style.setProperty("--app-scale", scale);
+    function getViewportSize() {
+      const vv = window.visualViewport;
+      return {
+        width: vv ? vv.width : window.innerWidth,
+        height: vv ? vv.height : window.innerHeight
+      };
     }
 
-    window.addEventListener("resize", fitStoryToViewport);
-    window.addEventListener("orientationchange", fitStoryToViewport);
-    fitStoryToViewport();
+    function fitStoryToViewport() {
+      const { width, height } = getViewportSize();
+      const widthScale = width / 1080;
+      const heightScale = height / 1920;
+      const scale = Math.min(widthScale, heightScale, 1);
+      document.documentElement.style.setProperty("--app-scale", String(scale));
+    }
+
+    function fitScrollableAreas() {
+      const story = document.querySelector(".story");
+      if (!story) return;
+      const storyRect = story.getBoundingClientRect();
+      const scale = storyRect.width / 1080 || 1;
+
+      const setHeight = (selector, variable, bottomPadding, minHeight) => {
+        const element = document.querySelector(selector);
+        if (!element) return;
+        const rect = element.getBoundingClientRect();
+        const height = Math.max(minHeight, (storyRect.bottom - rect.top) / scale - bottomPadding);
+        document.documentElement.style.setProperty(variable, `${height}px`);
+      };
+
+      setHeight(".item-list", "--item-list-height", 72, 640);
+      setHeight(".space-subgrid", "--space-subgrid-height", 72, 760);
+      setHeight(".page.active .space-blog-scroll", "--space-blog-height", 72, 900);
+    }
+
+    function scheduleFit() {
+      requestAnimationFrame(() => {
+        fitStoryToViewport();
+        fitScrollableAreas();
+      });
+      setTimeout(() => { fitStoryToViewport(); fitScrollableAreas(); }, 120);
+      setTimeout(() => { fitStoryToViewport(); fitScrollableAreas(); }, 450);
+    }
+
+    function scheduleScrollableFit() {
+      requestAnimationFrame(fitScrollableAreas);
+      setTimeout(fitScrollableAreas, 120);
+      setTimeout(fitScrollableAreas, 450);
+    }
+
+    window.addEventListener("load", scheduleFit);
+    window.addEventListener("resize", scheduleFit);
+    window.addEventListener("orientationchange", scheduleFit);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", scheduleFit);
+      window.visualViewport.addEventListener("scroll", scheduleFit);
+    }
+    scheduleFit();
 
     function getInitialCategory() {
       const params = new URLSearchParams(window.location.search);
