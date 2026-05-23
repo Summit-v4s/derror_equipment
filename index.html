@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Camera / Lens / Light Catalog</title>
+  <style>
+    :root {
+      --bg: #070914;
+      --bg-2: #101527;
+      --panel: rgba(255,255,255,0.075);
+      --panel-strong: rgba(255,255,255,0.13);
+      --line: rgba(255,255,255,0.16);
+      --text: #f7f7fb;
+      --muted: #aab0c4;
+      --accent: #54d4ff;
+      --accent-2: #ff5ac8;
+      --warm: #ffb45a;
+      --green: #7cffb1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #151722;
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .story {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 9%, rgba(84,212,255,0.34), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(255,90,200,0.24), transparent 32%),
+        radial-gradient(circle at 58% 94%, rgba(255,180,90,0.22), transparent 30%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 56%, #070914 100%);
+      padding: 74px 70px 64px;
+    }
+
+    .story::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 76%);
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: none;
+    }
+
+    .page.active { display: block; }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 42px;
+    }
+
+    .brand {
+      letter-spacing: 0.18em;
+      font-size: 26px;
+      font-weight: 850;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .pill,
+    .back-button,
+    .tab-button,
+    .transition-back,
+    .transition-continue,
+    .detail-nav-button {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.075);
+      backdrop-filter: blur(18px);
+    }
+
+    .pill,
+    .back-button {
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-size: 24px;
+      white-space: nowrap;
+    }
+
+    .back-button:hover,
+    .item-card:hover,
+    .tab-button:hover,
+    .transition-back:hover,
+    .transition-continue:hover,
+    .detail-nav-button:hover {
+      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.12));
+    }
+
+    .kicker {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 52px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .intro { margin-top: 54px; }
+
+    h1 {
+      margin: 0;
+      font-size: 104px;
+      line-height: 1.08;
+      letter-spacing: -0.065em;
+      word-break: keep-all;
+    }
+
+    .copy {
+      margin-top: 28px;
+      font-size: 32px;
+      line-height: 1.48;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 42px;
+    }
+
+    .tab-button {
+      min-height: 88px;
+      border-radius: 999px;
+      font-size: 24px;
+      font-weight: 850;
+      letter-spacing: -0.035em;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .tab-button.active {
+      color: white;
+      border-color: rgba(84,212,255,0.55);
+      background: linear-gradient(135deg, rgba(84,212,255,0.24), rgba(255,90,200,0.14));
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .summary-box {
+      min-height: 132px;
+      padding: 24px;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.065);
+      backdrop-filter: blur(18px);
+    }
+
+    .summary-label {
+      font-size: 20px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      font-size: 36px;
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      word-break: keep-all;
+    }
+
+    .item-list {
+      height: 930px;
+      overflow-y: auto;
+      padding-right: 8px;
+      display: grid;
+      align-content: start;
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .item-list::-webkit-scrollbar { width: 8px; }
+    .item-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 999px; }
+
+    .item-card {
+      width: 100%;
+      min-height: 270px;
+      border-radius: 38px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.075);
+      backdrop-filter: blur(18px);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 122px 1fr 36px;
+      gap: 28px;
+      align-items: center;
+      text-align: left;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.20);
+    }
+
+    .icon-badge {
+      width: 122px;
+      height: 122px;
+      border-radius: 34px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255,255,255,0.22), transparent 24%),
+        linear-gradient(145deg, rgba(84,212,255,0.22), rgba(255,90,200,0.12));
+      border: 1px solid rgba(255,255,255,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-badge.camera::before {
+      content: "";
+      width: 64px;
+      height: 44px;
+      border-radius: 12px;
+      border: 5px solid rgba(255,255,255,0.8);
+      position: absolute;
+      top: 42px;
+      left: 28px;
+    }
+    .icon-badge.camera::after {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.88);
+      position: absolute;
+      top: 52px;
+      left: 49px;
+      box-shadow: 36px -22px 0 -8px rgba(255,255,255,0.8);
+    }
+
+    .icon-badge.lens::before {
+      content: "";
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 7px solid rgba(255,255,255,0.86);
+      box-shadow: inset 0 0 0 18px rgba(255,255,255,0.08), inset 0 0 0 28px rgba(84,212,255,0.18);
+    }
+
+    .icon-badge.light::before {
+      content: "";
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 0 38px rgba(255,180,90,0.7), 0 0 80px rgba(84,212,255,0.32);
+    }
+    .icon-badge.light::after {
+      content: "";
+      position: absolute;
+      width: 72px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.48);
+      bottom: 34px;
+    }
+
+    .icon-badge.tool::before {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      border: 6px solid rgba(255,255,255,0.84);
+      transform: rotate(45deg);
+    }
+
+    .icon-badge.tool::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+    }
+
+    .icon-badge.etc::before {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.88);
+      box-shadow:
+        0 -24px 0 rgba(255,255,255,0.72),
+        0 24px 0 rgba(255,255,255,0.56);
+    }
+
+    .icon-badge.etc::after {
+      content: "";
+      position: absolute;
+      right: 24px;
+      top: 26px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(84,212,255,0.95);
+      box-shadow:
+        0 24px 0 rgba(255,90,200,0.88),
+        0 48px 0 rgba(255,180,90,0.82);
+    }
+
+    .item-name {
+      font-size: 38px;
+      font-weight: 920;
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+      word-break: keep-all;
+      margin-bottom: 14px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.78);
+      font-size: 20px;
+      font-weight: 780;
+    }
+
+    .summary {
+      font-size: 24px;
+      line-height: 1.48;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .item-card > div:nth-child(2) {
+      min-height: 198px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .arrow { font-size: 48px; color: rgba(255,255,255,0.48); }
+
+    .detail-hero {
+      margin-top: 34px;
+      min-height: 375px;
+      border-radius: 46px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 16% 20%, rgba(84,212,255,0.26), transparent 30%),
+        radial-gradient(circle at 82% 34%, rgba(255,90,200,0.18), transparent 28%),
+        linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+      box-shadow: 0 36px 100px rgba(0,0,0,0.36);
+      padding: 46px;
+      display: grid;
+      align-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-hero::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      right: -70px;
+      bottom: -110px;
+      border-radius: 50%;
+      border: 42px solid rgba(255,255,255,0.055);
+    }
+
+    .hero-label {
+      color: var(--accent);
+      font-size: 26px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .detail-title {
+      font-size: 78px;
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      font-weight: 930;
+      max-width: 820px;
+      word-break: keep-all;
+    }
+
+    .detail-subtitle {
+      margin-top: 22px;
+      max-width: 780px;
+      font-size: 30px;
+      line-height: 1.48;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 38px;
+      padding-bottom: 130px;
+    }
+
+    .spec-grid, .feature-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .spec-card, .feature-panel {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .spec-card {
+      min-height: 158px;
+      padding: 26px 26px 22px;
+      background: var(--panel);
+    }
+
+    .feature-panel {
+      min-height: 156px;
+      padding: 26px;
+      background: var(--panel-strong);
+    }
+
+    .spec-label, .feature-title {
+      font-size: 22px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 720;
+    }
+
+    .spec-value {
+      font-size: 37px;
+      line-height: 1.06;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      word-break: keep-all;
+    }
+
+    .feature-text {
+      font-size: 30px;
+      line-height: 1.25;
+      font-weight: 850;
+      letter-spacing: -0.035em;
+      word-break: keep-all;
+    }
+
+    .spec-note {
+      margin-top: 8px;
+      font-size: 20px;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .use-box {
+      padding: 28px 32px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(84,212,255,0.18), rgba(255,90,200,0.13));
+      border: 1px solid rgba(255,255,255,0.22);
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .use-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.13);
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      flex: 0 0 auto;
+    }
+
+    .use-copy strong { display: block; font-size: 27px; margin-bottom: 8px; }
+    .use-copy span {
+      display: block;
+      font-size: 27px;
+      line-height: 1.48;
+      color: rgba(255,255,255,0.78);
+      word-break: keep-all;
+    }
+
+    .detail-nav {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      bottom: 54px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      z-index: 3;
+    }
+
+    .detail-nav-button {
+      min-height: 92px;
+      border-radius: 28px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .detail-nav-button.next { text-align: right; align-items: flex-end; }
+    .nav-label { color: rgba(255,255,255,0.52); font-size: 20px; font-weight: 760; }
+    .nav-name { color: rgba(255,255,255,0.88); font-size: 25px; font-weight: 860; letter-spacing: -0.035em; line-height: 1.05; max-width: 410px; word-break: keep-all; }
+
+    .transition-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: block;
+      overflow-y: auto;
+      padding: 160px 90px 110px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(84,212,255,0.38), transparent 34%),
+        radial-gradient(circle at 82% 18%, rgba(255,90,200,0.28), transparent 32%),
+        linear-gradient(160deg, rgba(7,9,20,0.98), rgba(16,21,39,0.99));
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.015);
+      transition: opacity 720ms cubic-bezier(.16,1,.3,1), transform 1200ms cubic-bezier(.16,1,.3,1);
+    }
+
+    .transition-layer.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .transition-layer.leaving { opacity: 0; transform: scale(0.985); transition: opacity 640ms cubic-bezier(.16,1,.3,1), transform 900ms cubic-bezier(.16,1,.3,1); }
+    .transition-layer::-webkit-scrollbar { width: 8px; }
+    .transition-layer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.22); border-radius: 999px; }
+
+    .transition-back {
+      position: absolute;
+      top: 74px;
+      left: 70px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.84);
+      font-size: 24px;
+      font-weight: 760;
+    }
+
+    .transition-copy {
+      width: 100%;
+      min-height: 1450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+      position: relative;
+      z-index: 2;
+    }
+
+    .transition-label {
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .transition-title {
+      font-size: 118px;
+      line-height: 0.9;
+      letter-spacing: -0.075em;
+      font-weight: 950;
+      word-break: keep-all;
+      max-width: 860px;
+      opacity: 0;
+      transform: translateY(36px);
+    }
+
+    .transition-sub {
+      margin-top: 34px;
+      font-size: 36px;
+      line-height: 1.48;
+      color: var(--muted);
+      max-width: 800px;
+      word-break: keep-all;
+      opacity: 0;
+      transform: translateY(32px);
+    }
+
+    .transition-continue {
+      margin-top: 80px;
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      font-size: 24px;
+      font-weight: 760;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .transition-progress {
+      position: absolute;
+      left: 90px;
+      right: 90px;
+      bottom: 78px;
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+      border-radius: 999px;
+      opacity: 0;
+    }
+    .transition-progress::before { content: ""; position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+    .transition-ring {
+      position: absolute;
+      right: -120px;
+      bottom: -150px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      border: 58px solid rgba(255,255,255,0.055);
+      opacity: 0;
+      transform: scale(0.82) rotate(-18deg);
+    }
+
+    .transition-layer.active .transition-label { animation: riseIn 820ms 140ms cubic-bezier(.16,1,.3,1) forwards; }
+    .transition-layer.active .transition-title { animation: riseIn 980ms 300ms cubic-bezier(.16,1,.3,1) forwards; }
+    .transition-layer.active .transition-sub { animation: riseIn 980ms 560ms cubic-bezier(.16,1,.3,1) forwards; }
+    .transition-layer.active .transition-continue { animation: riseIn 780ms 1120ms cubic-bezier(.16,1,.3,1) forwards, gentlePulse 1800ms 1800ms ease-in-out infinite; }
+    .transition-layer.active .transition-progress { animation: fadeIn 600ms 820ms ease forwards; }
+    .transition-layer.active .transition-progress::before { animation: progressGrow 1500ms 600ms cubic-bezier(.16,1,.3,1) forwards; }
+    .transition-layer.active .transition-ring { animation: ringIn 1200ms 220ms cubic-bezier(.16,1,.3,1) forwards; }
+
+    .transition-layer.style-medium-format { background: radial-gradient(circle at 16% 10%, rgba(255,180,90,0.30), transparent 30%), radial-gradient(circle at 78% 22%, rgba(84,212,255,0.24), transparent 32%), linear-gradient(155deg, rgba(8,7,10,0.98), rgba(30,22,17,0.99)); }
+    .style-medium-format .transition-title { font-family: Georgia, "Times New Roman", serif; font-weight: 650; letter-spacing: -0.055em; }
+    .style-medium-format .transition-label { color: var(--warm); }
+    .style-medium-format .transition-ring { border-radius: 42px; transform: scale(0.84) rotate(8deg); }
+
+    .transition-layer.style-resolution { background: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px), radial-gradient(circle at 78% 18%, rgba(84,212,255,0.30), transparent 32%), linear-gradient(160deg, rgba(5,8,18,0.99), rgba(11,22,38,0.99)); background-size: 42px 42px, 42px 42px, auto, auto; }
+    .style-resolution .transition-title { letter-spacing: -0.09em; }
+    .style-resolution .transition-label { color: #7fdcff; }
+
+    .transition-layer.style-compact { background: radial-gradient(circle at 85% 12%, rgba(124,255,177,0.24), transparent 28%), radial-gradient(circle at 18% 80%, rgba(84,212,255,0.24), transparent 28%), linear-gradient(160deg, rgba(5,14,18,0.99), rgba(8,18,26,0.99)); }
+    .style-compact .transition-title { font-size: 104px; letter-spacing: -0.07em; max-width: 780px; }
+    .style-compact .transition-label { color: var(--green); }
+
+    .transition-layer.style-film { background: repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 18px), radial-gradient(circle at 24% 16%, rgba(255,180,90,0.28), transparent 30%), linear-gradient(160deg, rgba(18,12,8,0.99), rgba(22,14,22,0.99)); }
+    .style-film .transition-title { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 650; }
+    .style-film .transition-label { color: #ffd18a; }
+
+    .transition-layer.style-cinema { background: linear-gradient(to bottom, rgba(0,0,0,0.38) 0 10%, transparent 10% 90%, rgba(0,0,0,0.38) 90% 100%), radial-gradient(circle at 72% 20%, rgba(255,90,90,0.20), transparent 30%), linear-gradient(160deg, rgba(4,5,8,0.99), rgba(15,10,18,0.99)); }
+    .style-cinema .transition-title { letter-spacing: -0.06em; text-transform: uppercase; }
+    .style-cinema .transition-label { color: #ff7b7b; }
+    .style-cinema .transition-ring { width: 700px; height: 260px; border-radius: 46px; right: -180px; bottom: 50px; }
+
+    .transition-layer.style-classic { background: radial-gradient(circle at 24% 18%, rgba(255,255,255,0.18), transparent 28%), linear-gradient(160deg, rgba(14,13,12,0.99), rgba(32,28,24,0.99)); }
+    .style-classic .transition-title { font-family: Georgia, "Times New Roman", serif; font-weight: 620; letter-spacing: -0.045em; }
+    .style-classic .transition-label { color: #e8d6bd; }
+
+    .transition-layer.style-ccd { background: repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 6px), radial-gradient(circle at 30% 16%, rgba(255,90,200,0.28), transparent 30%), linear-gradient(160deg, rgba(10,8,18,0.99), rgba(26,10,30,0.99)); }
+    .style-ccd .transition-title { font-size: 108px; letter-spacing: -0.04em; }
+    .style-ccd .transition-label { color: #ff8fe1; }
+
+    .transition-layer.style-instax { background: radial-gradient(circle at 20% 12%, rgba(255,255,255,0.22), transparent 26%), radial-gradient(circle at 82% 18%, rgba(124,255,177,0.26), transparent 30%), linear-gradient(160deg, rgba(8,18,17,0.99), rgba(10,20,26,0.99)); }
+    .style-instax .transition-title { font-size: 110px; letter-spacing: -0.06em; }
+    .style-instax .transition-label { color: #9dffd0; }
+
+    .transition-layer.style-pocket { background: radial-gradient(circle at 50% 18%, rgba(84,212,255,0.28), transparent 26%), linear-gradient(160deg, rgba(5,7,12,0.99), rgba(6,13,22,0.99)); }
+    .style-pocket .transition-title { font-size: 104px; letter-spacing: -0.08em; max-width: 720px; line-height: 1.02; }
+    .style-pocket .transition-sub { line-height: 1.48; max-width: 820px; }
+    .style-pocket .transition-label { color: #8be7ff; }
+    .style-pocket .transition-ring { width: 300px; height: 620px; border-radius: 120px; right: -60px; bottom: -80px; }
+
+    .transition-layer.style-lens-portrait { background: radial-gradient(circle at 82% 16%, rgba(255,180,90,0.28), transparent 30%), radial-gradient(circle at 28% 70%, rgba(255,90,200,0.18), transparent 30%), linear-gradient(155deg, rgba(10,8,12,0.99), rgba(28,17,24,0.99)); }
+    .style-lens-portrait .transition-title { font-family: Georgia, "Times New Roman", serif; font-weight: 650; letter-spacing: -0.05em; }
+    .style-lens-portrait .transition-label { color: #ffd08a; }
+
+    .transition-layer.style-lens-wide { background: radial-gradient(ellipse at 50% 18%, rgba(84,212,255,0.30), transparent 34%), linear-gradient(160deg, rgba(4,9,18,0.99), rgba(6,18,30,0.99)); }
+    .style-lens-wide .transition-title { letter-spacing: -0.09em; max-width: 920px; }
+    .style-lens-wide .transition-label { color: #7fdcff; }
+
+    .transition-layer.style-lens-macro { background: radial-gradient(circle at 22% 22%, rgba(124,255,177,0.28), transparent 26%), radial-gradient(circle at 72% 60%, rgba(84,212,255,0.18), transparent 28%), linear-gradient(160deg, rgba(5,14,12,0.99), rgba(8,18,20,0.99)); }
+    .style-lens-macro .transition-title { letter-spacing: -0.06em; }
+    .style-lens-macro .transition-label { color: #9dffd0; }
+
+    .transition-layer.style-light-power { background: radial-gradient(circle at 50% 26%, rgba(255,180,90,0.36), transparent 28%), radial-gradient(circle at 80% 18%, rgba(84,212,255,0.22), transparent 28%), linear-gradient(160deg, rgba(13,10,5,0.99), rgba(23,18,9,0.99)); }
+    .style-light-power .transition-label { color: #ffca7a; }
+    .style-light-power .transition-title { letter-spacing: -0.08em; }
+
+    .transition-layer.style-light-color { background: radial-gradient(circle at 20% 12%, rgba(84,212,255,0.34), transparent 30%), radial-gradient(circle at 80% 20%, rgba(255,90,200,0.30), transparent 30%), radial-gradient(circle at 52% 76%, rgba(124,255,177,0.20), transparent 26%), linear-gradient(160deg, rgba(6,8,18,0.99), rgba(16,12,28,0.99)); }
+    .style-light-color .transition-label { color: #ff8fe1; }
+    .style-light-color .transition-title { letter-spacing: -0.085em; }
+
+    .transition-layer.style-flash { background: linear-gradient(115deg, rgba(255,255,255,0.10) 0 10%, transparent 10% 100%), radial-gradient(circle at 30% 18%, rgba(255,255,255,0.32), transparent 22%), linear-gradient(160deg, rgba(8,9,12,0.99), rgba(16,18,24,0.99)); }
+    .style-flash .transition-label { color: #ffffff; }
+    .style-flash .transition-title { text-transform: uppercase; letter-spacing: -0.07em; }
+
+    @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
+    @keyframes ringIn { to { opacity: 1; transform: scale(1) rotate(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes progressGrow { to { width: 100%; } }
+    @keyframes gentlePulse { 0%, 100% { transform: translateY(0); background: rgba(255,255,255,0.075); } 50% { transform: translateY(-3px); background: rgba(255,255,255,0.12); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .transition-layer,
+      .transition-label,
+      .transition-title,
+      .transition-sub,
+      .transition-continue,
+      .transition-progress,
+      .transition-progress::before,
+      .transition-ring { animation: none !important; transition: none !important; transform: none !important; }
+    }
+
+    @media screen and (max-width: 1100px) {
+      body { place-items: start center; }
+      .story { transform-origin: top center; transform: scale(calc(100vw / 1080)); }
+    }
+  </style>
+</head>
+<body>
+  <main class="story">
+    <div id="transitionLayer" class="transition-layer" aria-hidden="true">
+      <button id="transitionBack" class="transition-back">‹ 목록으로</button>
+      <div class="transition-copy">
+        <div id="transitionLabel" class="transition-label">CAMERA</div>
+        <div id="transitionTitle" class="transition-title">Equipment</div>
+        <div id="transitionSub" class="transition-sub">Detail</div>
+        <button id="transitionContinue" class="transition-continue">상세 스펙 보기 <span>↓</span></button>
+      </div>
+      <div class="transition-progress"></div>
+      <div class="transition-ring"></div>
+    </div>
+
+    <section id="listPage" class="page active">
+      <header class="topline">
+        <div class="brand">STUDIO EQUIPMENT</div>
+        <div id="topPill" class="pill">CAMERA</div>
+      </header>
+
+      <div class="intro">
+        <div id="listKicker" class="kicker">CAMERA BODY / VIDEO</div>
+        <h1 id="listTitle">카메라<br />장비 목록</h1>
+        <div id="listCopy" class="copy">사진 없이도 한눈에 읽히도록 핵심 스펙과 장비 성격을 중심으로 정리한 스튜디오 카탈로그입니다.</div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button active" data-category="camera">카메라</button>
+        <button class="tab-button" data-category="lens">렌즈</button>
+        <button class="tab-button" data-category="light">조명</button>
+        <button class="tab-button" data-category="tool">라이팅툴</button>
+        <button class="tab-button" data-category="etc">ETC</button>
+      </div>
+
+      <div class="summary-strip">
+        <div class="summary-box"><div class="summary-label">총 장비</div><div id="countValue" class="summary-value">10</div></div>
+        <div class="summary-box"><div class="summary-label">주요 시스템</div><div id="systemValue" class="summary-value">FE / X / L</div></div>
+        <div class="summary-box"><div class="summary-label">주요 용도</div><div id="useValue" class="summary-value">PHOTO + VIDEO</div></div>
+      </div>
+
+      <div id="itemList" class="item-list"></div>
+    </section>
+
+    <section id="detailPage" class="page">
+      <header class="topline">
+        <button id="backButton" class="back-button">‹ 목록</button>
+        <div id="detailPill" class="pill">DETAIL</div>
+      </header>
+
+      <section class="detail-hero">
+        <div id="detailEyebrow" class="hero-label">EQUIPMENT</div>
+        <div id="detailTitle" class="detail-title">Equipment Name</div>
+        <div id="detailSubtitle" class="detail-subtitle"></div>
+      </section>
+
+      <section class="detail-layout">
+        <div id="specGrid" class="spec-grid"></div>
+        <div id="featureRow" class="feature-row"></div>
+        <div class="use-box">
+          <div class="use-icon">✦</div>
+          <div class="use-copy"><strong>추천 사용</strong><span id="detailUse"></span></div>
+        </div>
+      </section>
+
+      <nav class="detail-nav" aria-label="장비 이동">
+        <button id="prevItem" class="detail-nav-button prev"><span class="nav-label">‹ 이전 장비</span><span id="prevItemName" class="nav-name"></span></button>
+        <button id="nextItem" class="detail-nav-button next"><span class="nav-label">다음 장비 ›</span><span id="nextItemName" class="nav-name"></span></button>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    const categoryInfo = {
+      camera: { title: "카메라", kicker: "CAMERA BODY / VIDEO", headline: "카메라", copy: "스튜디오에서 사용할 수 있는 카메라를 촬영 용도와 핵심 특징 중심으로 정리했습니다.", system: "FE / X / L", use: "PHOTO + VIDEO", icon: "camera" },
+      lens: { title: "렌즈", kicker: "LENS / FOCAL LENGTH / MOUNT", headline: "렌즈", copy: "보유 렌즈를 마운트, 화각, 조리개, 추천 촬영 용도 중심으로 확인할 수 있습니다.", system: "FE / X / XCD / EF", use: "PORTRAIT + DETAIL", icon: "lens" },
+      light: { title: "조명", kicker: "CONTINUOUS / STROBE / FLASH", headline: "조명", copy: "지속광, 스트로브, 스피드라이트를 출력과 색 표현, 추천 용도 중심으로 정리했습니다.", system: "LED / STROBE / FLASH", use: "PHOTO + VIDEO", icon: "light" },
+      tool: { title: "라이팅툴", kicker: "MODIFIER / CONTROL / SHAPING", headline: "라이팅툴", copy: "소프트박스, 프레넬, 프로젝터, 반사판처럼 빛의 모양과 광질을 바꾸는 도구를 정리했습니다.", system: "BOWENS / FM / REFLECTOR", use: "LIGHT SHAPING", icon: "tool" },
+      etc: { title: "ETC", kicker: "ACCESSORY / SUPPORT / WORKFLOW", headline: "ETC.", copy: "트리거, 동조기, 테더링 케이블, 삼각대 등 촬영 진행을 돕는 보조 장비를 정리했습니다.", system: "TRIGGER / SUPPORT / CABLE", use: "WORKFLOW", icon: "etc" }
+    };
+
+    const data = {
+      camera: [
+        { id:"hasselblad-x2d-ii-100c", name:"Hasselblad X2D II 100C", tags:["중형 포맷","100MP","XCD 마운트","16-bit"], eyebrow:"HASSELBLAD X SYSTEM", pill:"중형 포맷 · XCD 마운트 · 100MP", subtitle:"100MP 중형 포맷 센서와 16-bit 컬러를 기반으로 높은 디테일과 자연스러운 컬러를 제공하는 플래그십 스틸 카메라", summary:"고해상도 인물, 제품, 패션, 파인아트 촬영에 적합한 100MP 중형 포맷 미러리스 카메라", transition:["MEDIUM FORMAT","100MP의 질감","피부톤, 색, 디테일을 가장 여유롭게 담는 중형 포맷 스틸 카메라"], style:"style-medium-format", specs:[["Sensor","100MP BSI CMOS","43.8 × 32.9mm 중형 포맷"],["Color Depth","16-bit","약 281조 컬러 계조 표현"],["Dynamic Range","15.3 stops","ISO 50 네이티브 감도 지원"],["Stabilization","10-stop IBIS","5축 바디 내장 손떨림 보정"]], features:[["Storage / Workflow","1TB 내장 SSD · CFexpress Type B · USB-C"],["Display / HDR","3.6″ OLED · 1400nit · HNCS HDR"]], use:"고급 인물, 제품, 패션, 프로필, 파인아트처럼 피부톤·질감·색감·디테일이 중요한 촬영에 적합합니다." },
+        { id:"sony-a7r-v", name:"Sony α7R V", tags:["FE 마운트","61MP","8K","8-stop IBIS"], eyebrow:"SONY ALPHA FULL-FRAME", pill:"FE 마운트 · 61MP · 고해상도", subtitle:"61MP 풀프레임 센서, AI 처리 유닛, 8K 영상, 8스톱급 IBIS를 갖춘 고해상도 하이브리드 미러리스 카메라", summary:"고해상도 인물·제품·풍경·크롭 활용에 강한 Sony E 마운트 풀프레임 바디", transition:["RESOLUTION BODY","61MP의 여유","크롭과 대형 출력까지 버티는 고해상도 풀프레임 바디"], style:"style-resolution", specs:[["Sensor","61MP Exmor R","풀프레임 BSI CMOS"],["Processor","BIONZ XR + AI","AI 기반 피사체 인식 AF"],["Video","8K 24p / 4K 60p","10-bit 내부 기록 지원"],["Stabilization","8.0 stops","5축 바디 내장 손떨림 보정"]], features:[["Storage","CFexpress Type A / SD 듀얼 슬롯"],["Display / EVF","4축 멀티앵글 LCD · 9.44M-dot EVF"]], use:"디테일이 중요한 프로필, 제품, 파인아트, 대형 출력, 크롭 전제가 있는 망원 촬영에 좋습니다." },
+        { id:"sony-a7cr", name:"Sony α7CR", tags:["FE 마운트","61MP","컴팩트","7-stop IBIS"], eyebrow:"SONY COMPACT FULL-FRAME", pill:"FE 마운트 · 61MP · 컴팩트", subtitle:"61MP 풀프레임 센서를 소형 바디에 넣은 고해상도 컴팩트 풀프레임 미러리스 카메라", summary:"작고 가벼운 바디에 61MP 해상도를 담은 여행·스냅·고해상도 촬영용 카메라", transition:["COMPACT RESOLUTION","작지만 61MP","가벼운 바디에 고해상도를 담은 로케이션 친화형 카메라"], style:"style-compact", specs:[["Sensor","61MP Exmor R","풀프레임 BSI CMOS"],["Mount","Sony FE","풀프레임 E 마운트"],["Video","4K 60p","Super 35mm 영역 4K 60p"],["Stabilization","7.0 stops","5축 바디 내장 손떨림 보정"]], features:[["Body Concept","고해상도 센서 + 휴대성 중심"],["AF","AI 기반 피사체 인식 AF"]], use:"장비를 가볍게 유지하면서도 고해상도 결과물이 필요한 스냅, 여행, 로케이션 인물 촬영에 적합합니다." },
+        { id:"fujifilm-x-m5", name:"FUJIFILM X-M5", tags:["X 마운트","26.1MP","APS-C","6.2K"], eyebrow:"FUJIFILM X SERIES", pill:"X 마운트 · APS-C · 26.1MP", subtitle:"26.1MP X-Trans CMOS 4 센서와 X-Processor 5를 탑재한 소형 APS-C 미러리스 카메라", summary:"가벼운 스냅, 브이로그, 필름 시뮬레이션 기반 콘텐츠 제작에 적합한 X 마운트 바디", transition:["FILM SIMULATION","가볍게, 색감 있게","필름 시뮬레이션과 작은 바디로 빠르게 만드는 콘텐츠 카메라"], style:"style-film", specs:[["Sensor","26.1MP X-Trans","APS-C X-Trans CMOS 4"],["Processor","X-Processor 5","최신 AF/영상 처리 엔진"],["Video","6.2K 30p","오픈게이트 계열 영상 활용 가능"],["Mount","FUJIFILM X","X 마운트 교환렌즈 시스템"]], features:[["Look","필름 시뮬레이션 기반 컬러"],["Body","소형·경량 브이로그 친화 바디"]], use:"가벼운 스냅, SNS용 영상, 컬러 룩이 중요한 캐주얼 촬영과 백업 카메라 용도에 좋습니다." },
+        { id:"panasonic-s1h", name:"Panasonic LUMIX DC-S1H", tags:["L 마운트","24.2MP","6K","V-Log"], eyebrow:"PANASONIC LUMIX S", pill:"L 마운트 · 6K 영상 · 풀프레임", subtitle:"24.2MP 풀프레임 센서와 6K 10-bit 영상, 듀얼 네이티브 ISO를 갖춘 영상 중심 풀프레임 미러리스 카메라", summary:"스튜디오 영상, 인터뷰, 시네마틱 촬영에 강한 풀프레임 영상 특화 카메라", transition:["CINEMA WORKFLOW","6K와 V-Log","장시간 영상과 색보정 중심의 시네마틱 촬영 바디"], style:"style-cinema", specs:[["Sensor","24.2MP CMOS","풀프레임 MOS 센서"],["Video","6K 24p 10-bit","C4K/4K 10-bit 계열 지원"],["Profile","V-Log / V-Gamut","넓은 후반 색보정 범위"],["Mount","L-Mount","L 마운트 렌즈 시스템"]], features:[["Low Light","듀얼 네이티브 ISO 구조"],["Production","영상 제작용 냉각/모니터링 지향 바디"]], use:"장시간 영상, 인터뷰, 시네마틱 룩, 색보정 전제의 스튜디오 영상 제작에 적합합니다." },
+        { id:"leica-x-typ-113", name:"Leica X (Typ 113)", tags:["고정렌즈","APS-C","16.2MP","35mm 환산"], eyebrow:"LEICA COMPACT", pill:"APS-C · 35mm 환산 · 고정렌즈", subtitle:"16.2MP APS-C 센서와 Summilux 23mm f/1.7 ASPH. 렌즈를 결합한 대형 센서 컴팩트 카메라", summary:"고정 35mm 화각 감성의 스냅, 일상, 분위기 촬영용 Leica 컴팩트 카메라", transition:["COMPACT LEICA","35mm의 감성","장비보다 프레이밍과 분위기에 집중하는 고정렌즈 스냅 카메라"], style:"style-classic", specs:[["Sensor","16.2MP APS-C","23.6 × 15.8mm CMOS"],["Lens","23mm F1.7","35mm 환산 약 35mm"],["File","DNG + JPEG","RAW 촬영 지원"],["Video","1080p 30fps","MP4 영상 기록"]], features:[["Look","Leica 고정렌즈 스냅 감성"],["Operation","단순한 조작계와 클래식 바디"]], use:"장비보다 분위기와 프레이밍이 중요한 스냅, 일상 기록, 감성 컷 촬영에 좋습니다." },
+        { id:"canon-eos-6d", name:"Canon EOS 6D", tags:["EF 마운트","20.2MP","풀프레임","DSLR"], eyebrow:"CANON EOS DSLR", pill:"EF 마운트 · 풀프레임 DSLR", subtitle:"20.2MP 풀프레임 CMOS 센서와 EF 마운트를 사용하는 클래식 풀프레임 DSLR 카메라", summary:"Canon EF 렌즈를 사용하는 풀프레임 DSLR로 자연스러운 색감의 인물·스냅 촬영에 적합", transition:["FULL-FRAME DSLR","클래식한 EF 시스템","광학식 파인더와 Canon 색감의 풀프레임 DSLR"], style:"style-classic", specs:[["Sensor","20.2MP CMOS","36 × 24mm 풀프레임"],["Processor","DIGIC 5+","Canon DSLR 이미지 프로세서"],["Mount","Canon EF","EF-S 제외 EF 렌즈 사용"],["Burst","4.5 fps","연속 촬영 속도"]], features:[["ISO","ISO 100–25600, 확장 50–102400"],["AF","11-point AF 시스템"]], use:"DSLR 특유의 파인더 경험, Canon 색감, EF 렌즈 활용이 필요한 인물·스냅 촬영에 좋습니다." },
+        { id:"canon-ixus-990-is", name:"Canon Digital IXUS 990 IS", tags:["컴팩트","12.1MP","5× 줌","CCD"], eyebrow:"CANON IXUS COMPACT", pill:"CCD 컴팩트 · 5× 줌", subtitle:"12.1MP CCD 센서와 37–185mm 환산 5배 줌을 갖춘 빈티지 디지털 컴팩트 카메라", summary:"Y2K/CCD 감성의 일상 스냅과 캐주얼한 무드 컷에 어울리는 컴팩트 카메라", transition:["CCD SNAP","작고 레트로하게","2000년대 디지털 컴팩트의 캐주얼한 질감"], style:"style-ccd", specs:[["Sensor","12.1MP CCD","1/2.3″ 타입 센서"],["Lens","37–185mm equiv.","5× 광학 줌"],["Stabilization","Optical IS","광학식 이미지 안정화"],["Video","HD 720p","1280 × 720 영상 기록"]], features:[["Style","2000년대 디지털 컴팩트 룩"],["Use","작고 간단한 포인트앤슛"]], use:"의도적으로 레트로하고 캐주얼한 느낌을 만들고 싶을 때, 현장 분위기 기록용 서브 카메라로 좋습니다." },
+        { id:"instax-pal", name:"FUJIFILM instax Pal", tags:["디지털 인스탁스","초소형","앱 연동","프린터 연동"], eyebrow:"FUJIFILM INSTAX", pill:"instax · 초소형 디지털 카메라", subtitle:"촬영한 이미지를 앱으로 전송하고 instax Link 프린터와 연동해 즉석사진처럼 즐길 수 있는 초소형 디지털 카메라", summary:"행사장·스튜디오에서 가볍게 분위기 컷을 남기기 좋은 장난감 같은 초소형 카메라", transition:["TINY MOMENTS","작은 즉흥 기록","현장의 분위기를 부담 없이 남기는 초소형 인스탁스 카메라"], style:"style-instax", specs:[["Type","Digital instax camera","프린터 내장형이 아닌 촬영 전용"],["Lens","Wide-angle","셀피·단체샷 친화 화각"],["Workflow","App + Link printer","앱 저장 및 instax 프린터 출력"],["Body","Ultra compact","휴대용 미니 카메라"]], features:[["Best For","이벤트 · 파티 · 메이킹 기록"],["Look","가볍고 장난감 같은 즉흥 기록"]], use:"촬영 현장의 비하인드, 팀 분위기, 이벤트 참여자 기록처럼 부담 없는 순간 포착에 적합합니다." },
+        { id:"dji-osmo-pocket-3", name:"DJI Osmo Pocket 3", tags:["1″ CMOS","4K/120","3축 짐벌","Creator Combo"], eyebrow:"DJI OSMO", pill:"1″ 센서 · 3축 짐벌 · 4K", subtitle:"1인치급 CMOS 센서와 3축 짐벌, 4K/120fps 촬영을 지원하는 포켓형 영상 카메라", summary:"스튜디오 비하인드, 릴스, 브이로그, 핸드헬드 영상 기록에 강한 포켓 짐벌 카메라", transition:["POCKET CINEMA","움직임까지 안정적으로","3축 짐벌과 1인치 센서로 만드는 가벼운 영상 기록"], style:"style-pocket", specs:[["Sensor","1″ CMOS","저조도 대응이 좋은 대형 센서"],["Video","4K/120fps","슬로모션 4K 촬영 지원"],["Stabilization","3-axis gimbal","기계식 짐벌 안정화"],["Display","2″ rotatable OLED","가로/세로 전환 편의"]], features:[["Tracking","ActiveTrack 6.0"],["Combo","Mic 2 등 Creator Combo 구성 활용"]], use:"스튜디오 홍보 영상, 짧은 메이킹 릴스, 이동 촬영, 가벼운 인터뷰/브이로그 영상에 적합합니다." }
+      ],
+      lens: [
+        { id:"viltrox-af-28mm-f45-fe", name:"Viltrox AF 28mm F4.5 FE", tags:["FE 마운트","28mm","F4.5","팬케이크"], eyebrow:"VILTROX CHIP LENS", pill:"FE 마운트 · 28mm · 팬케이크", subtitle:"Sony FE 마운트용 초박형 28mm F4.5 자동초점 팬케이크 렌즈", summary:"바디캡처럼 얇은 28mm 자동초점 렌즈로 스냅과 가벼운 이동 촬영에 적합", transition:["POCKET WIDE","바디캡처럼 가볍게","카메라를 가장 작게 만드는 28mm 팬케이크 렌즈"], style:"style-lens-wide", specs:[["Mount","Sony FE","풀프레임 E 마운트"],["Focal Length","28mm","광각 스냅 화각"],["Aperture","F4.5 fixed","고정 조리개 구조"],["Weight","약 60g","초박형 휴대 설계"]], features:[["Best For","스냅 · 산책 · 가벼운 영상"],["Look","작고 즉흥적인 광각 기록"]], use:"큰 카메라를 최대한 작게 들고 나가고 싶을 때, 일상 스냅이나 거리 촬영용 바디캡 렌즈처럼 쓰기 좋습니다." },
+        { id:"sony-fe-50mm-f12-gm", name:"Sony FE 50mm F1.2 GM", tags:["FE 마운트","50mm","F1.2","GM"], eyebrow:"SONY G MASTER", pill:"FE 마운트 · 50mm · F1.2", subtitle:"F1.2 대구경과 G Master 해상력을 결합한 Sony FE 표준 단렌즈", summary:"얕은 심도, 선명한 중심부, 고급스러운 보케가 필요한 인물·프로필용 표준 단렌즈", transition:["FAST NORMAL","F1.2의 깊이감","표준 화각에서 가장 강하게 피사체를 분리하는 GM 단렌즈"], style:"style-lens-portrait", specs:[["Mount","Sony FE","풀프레임 E 마운트"],["Focal Length","50mm","표준 단렌즈"],["Max Aperture","F1.2","초대구경 밝은 조리개"],["Filter","72mm","11매 원형 조리개"]], features:[["Best For","인물 · 프로필 · 실내 자연광"],["Look","얕은 심도 · 크리미한 보케"]], use:"인물 클로즈업, 실내 자연광, 얕은 심도 표현, 고급스러운 배경 흐림이 필요한 촬영에 좋습니다." },
+        { id:"sigma-105mm-f28-dg-dn-macro-art", name:"Sigma 105mm F2.8 DG DN MACRO | Art", tags:["FE 마운트","105mm","F2.8","1:1 Macro"], eyebrow:"SIGMA ART MACRO", pill:"FE 마운트 · 105mm · 1:1 매크로", subtitle:"1:1 등배 촬영과 높은 해상력을 제공하는 Sigma Art 라인의 중망원 매크로 렌즈", summary:"제품 디테일, 뷰티, 클로즈업, 접사 촬영에 적합한 고해상도 매크로 렌즈", transition:["MACRO DETAIL","1:1의 디테일","작은 질감과 표면을 크게 보여주는 고해상도 매크로 렌즈"], style:"style-lens-macro", specs:[["Mount","Sony E","풀프레임 대응 DG DN"],["Focal Length","105mm","중망원 매크로"],["Magnification","1:1","등배 매크로 촬영"],["Close Focus","29.5cm","최단 촬영 거리"]], features:[["Best For","제품 · 뷰티 · 접사"],["Look","정밀한 디테일 · 높은 선예도"]], use:"화장품, 쥬얼리, 음식, 디테일 컷, 피부 질감 클로즈업처럼 작은 피사체를 선명하게 보여줄 때 좋습니다." },
+        { id:"tamron-35-150mm-f2-28-di-iii-vxd", name:"Tamron 35-150mm F/2-2.8 Di III VXD", tags:["FE 마운트","35-150mm","F2-2.8","VXD"], eyebrow:"TAMRON FAST ZOOM", pill:"FE 마운트 · 35-150mm · F2-2.8", subtitle:"35mm 광각부터 150mm 망원까지 F2-2.8 밝기를 제공하는 고성능 인물·이벤트 줌렌즈", summary:"한 렌즈로 반신, 전신, 클로즈업까지 커버하는 인물·행사 촬영용 고속 줌", transition:["PORTRAIT ZOOM","35에서 150까지","렌즈 교체 없이 인물 촬영의 주요 화각을 빠르게 커버하는 줌"], style:"style-lens-portrait", specs:[["Mount","Sony E","풀프레임 대응"],["Focal Range","35-150mm","광각-망원 인물 범위"],["Aperture","F2-2.8","광각 F2 시작"],["AF Motor","VXD","고속 리니어 모터 AF"]], features:[["Use Range","35 / 50 / 85 / 135 / 150mm 대체"],["Best For","인물 · 행사 · 프로필 · 로케이션"]], use:"렌즈 교체 없이 여러 구도를 빠르게 촬영해야 하는 프로필, 행사, 모델 촬영, 야외 인물 촬영에 좋습니다." },
+        { id:"sigma-16-28mm-f28-dg-dn-contemporary", name:"Sigma 16-28mm F2.8 DG DN | Contemporary", tags:["FE 마운트","16-28mm","F2.8","Contemporary"], eyebrow:"SIGMA WIDE ZOOM", pill:"FE 마운트 · 16-28mm · F2.8", subtitle:"풀프레임 대응 16-28mm F2.8 초광각 줌렌즈로 실내, 공간, 브이로그, 광각 연출에 적합한 렌즈", summary:"좁은 공간, 스튜디오 전경, 광각 인물, 영상 촬영에 활용하기 좋은 컴팩트 초광각 줌", transition:["WIDE SPACE","공간을 넓게", "좁은 실내와 넓은 배경을 한 번에 담는 초광각 줌"], style:"style-lens-wide", specs:[["Mount","Sony E","풀프레임 대응 DG DN"],["Focal Range","16-28mm","초광각 줌"],["Max Aperture","F2.8","고정 조리개"],["Filter","72mm","필터 사용 가능"]], features:[["Best For","실내 · 공간 · 광각 영상"],["Look","넓은 배경 · 강한 원근감"]], use:"스튜디오 내부 전경, 협소한 공간 촬영, 넓은 배경을 넣은 인물, 핸드헬드 영상에 적합합니다." },
+        { id:"sigma-28-70mm-f28-dg-dn-contemporary", name:"Sigma 28-70mm F2.8 DG DN | Contemporary", tags:["FE 마운트","28-70mm","F2.8","Contemporary"], eyebrow:"SIGMA STANDARD ZOOM", pill:"FE 마운트 · 28-70mm · F2.8", subtitle:"작고 가벼운 풀프레임 F2.8 표준 줌렌즈로 스냅, 인물, 영상에 두루 쓰기 좋은 렌즈", summary:"휴대성과 범용성을 중시하는 표준 줌렌즈로 가벼운 촬영 세팅에 적합", transition:["EVERYDAY ZOOM","가볍고 범용적으로", "스냅부터 영상까지 부담 없이 가져가는 F2.8 표준 줌"], style:"style-compact", specs:[["Mount","Sony E","풀프레임 대응 DG DN"],["Focal Range","28-70mm","표준 줌 범위"],["Max Aperture","F2.8","고정 조리개"],["Weight","약 470g","Sony E 마운트 기준"]], features:[["Best For","스냅 · 인물 · 영상"],["Look","가벼운 표준 줌 워크플로우"]], use:"가볍게 움직이면서 인물, 제품, 스냅, 짧은 영상까지 한 렌즈로 처리하고 싶을 때 좋습니다." },
+        { id:"sony-fe-100-400mm-f45-56-gm-oss", name:"Sony FE 100-400mm F4.5-5.6 GM OSS", tags:["FE 마운트","100-400mm","GM","OSS"], eyebrow:"SONY TELEPHOTO GM", pill:"FE 마운트 · 100-400mm · GM OSS", subtitle:"100-400mm 망원 범위와 G Master 해상력, OSS 안정화를 갖춘 풀프레임 망원 줌렌즈", summary:"스포츠, 동물, 압축 인물, 행사 장거리 촬영에 적합한 고성능 망원 줌", transition:["LONG REACH","멀리 있는 피사체를 가깝게", "400mm 망원으로 거리와 배경을 압축하는 G Master 줌"], style:"style-lens-portrait", specs:[["Mount","Sony FE","풀프레임 E 마운트"],["Focal Range","100-400mm","초망원 줌"],["Aperture","F4.5-5.6","가변 조리개"],["Close Focus","0.98m","최대 0.35× 근접 촬영"]], features:[["Best For","스포츠 · 동물 · 압축 인물"],["Look","강한 배경 압축 · 망원 분리감"]], use:"멀리 있는 피사체를 크게 담거나, 강한 배경 압축을 이용한 야외 인물·자동차·행사 촬영에 좋습니다." },
+        { id:"sigma-135mm-f14-dg-art", name:"Sigma 135mm F1.4 DG Art", tags:["FE 마운트","135mm","F1.4","Art 라인"], eyebrow:"SIGMA ART PORTRAIT", pill:"FE 마운트 · 135mm · F1.4", subtitle:"FE 마운트용 135mm 대구경 망원 단렌즈로 강한 배경 압축과 얕은 심도를 만드는 렌즈", summary:"강한 배경 압축과 얕은 심도로 인물, 패션, 프로필 촬영에서 고급스러운 분리감을 만드는 대구경 망원 단렌즈", transition:["CREAMY TELEPHOTO","135mm F1.4", "배경을 크게 압축하고 피사체만 깊게 떠오르게 만드는 인물 렌즈"], style:"style-lens-portrait", specs:[["Mount","Sony FE","풀프레임 E 마운트"],["Focal Length","135mm","인물·패션용 망원 단렌즈"],["Max Aperture","F1.4","얕은 심도와 높은 저조도 성능"],["Lens Class","Art Prime","고해상도 표현 중심"]], features:[["Best For","인물 · 프로필 · 패션 · 야외 압축샷"],["Look","강한 배경 압축 · 크리미한 보케"]], use:"피사체와 배경을 확실히 분리하고 싶을 때, 얼굴 클로즈업이나 상반신 인물에서 고급스러운 압축감과 부드러운 배경 흐림을 만들기에 좋습니다." },
+        { id:"samyang-vdslr-t15-set", name:"Samyang VDSLR 35mm / 50mm / 85mm T1.5 Set", tags:["FE 마운트","Cine","T1.5","수동초점"], eyebrow:"SAMYANG VDSLR CINE SET", pill:"FE 마운트 · 35/50/85mm · T1.5", subtitle:"35mm, 50mm, 85mm T1.5 구성의 수동초점 시네 렌즈 세트", summary:"영상 촬영에서 포커스 풀링과 일관된 조작감이 필요한 시네 렌즈 세트", transition:["CINE PRIME SET","T1.5 수동 조작", "포커스 링을 직접 돌려 만드는 시네마틱 움직임"], style:"style-cinema", specs:[["Mount","Sony E / FE","풀프레임 대응 시네 렌즈"],["Focal Lengths","35 / 50 / 85mm","주요 인물·영상 화각"],["Transmission","T1.5","시네 렌즈식 광량 표기"],["Focus","Manual","기어드 포커스/아이리스 링"]], features:[["Best For","영상 · 뮤직비디오 · 연출 촬영"],["Look","수동 포커스 기반 시네마틱 룩"]], use:"삼각대/리그 기반 영상 촬영에서 의도적인 포커스 이동과 시네 렌즈 조작감이 필요할 때 좋습니다." },
+        { id:"fujifilm-xc15-45mm-f35-56-ois-pz", name:"FUJINON XC15-45mmF3.5-5.6 OIS PZ", tags:["X 마운트","15-45mm","OIS","PZ"], eyebrow:"FUJIFILM XC ZOOM", pill:"X 마운트 · 15-45mm · OIS PZ", subtitle:"X 마운트 APS-C용 전동 줌 표준 렌즈로 23-69mm 환산 화각과 손떨림 보정을 제공하는 컴팩트 줌렌즈", summary:"X-M5와 조합하기 좋은 가벼운 표준 줌으로 스냅·영상·일상 촬영에 적합", transition:["COMPACT KIT ZOOM","작고 편하게", "스냅과 브이로그를 가볍게 시작하는 X 마운트 전동 줌"], style:"style-compact", specs:[["Mount","FUJIFILM X","APS-C X 마운트"],["Focal Range","15-45mm","35mm 환산 약 23-69mm"],["Aperture","F3.5-5.6","가변 조리개"],["Stabilization","OIS","광학식 손떨림 보정"]], features:[["Zoom","Power Zoom"],["Best For","스냅 · 브이로그 · 가벼운 촬영"]], use:"X-M5에 가볍게 물려 일상, 스냅, 영상, 여행 기록용으로 사용하기 좋습니다." },
+        { id:"astrhori-65mm-f2-fisheye-x", name:"AstrHori 6.5mm F2.0 Circular Fisheye", tags:["X 마운트","6.5mm","F2","어안"], eyebrow:"ASTRHORI FISHEYE", pill:"X 마운트 · 6.5mm · 원형 어안", subtitle:"APS-C 미러리스용 6.5mm F2.0 원형 어안 렌즈로 극단적인 화각과 왜곡 표현을 만드는 수동 렌즈", summary:"특수한 공간감, 원형 어안 표현, 창의적인 영상/사진 연출에 쓰기 좋은 렌즈", transition:["FISHEYE WORLD","휘어지는 공간", "일반 렌즈로는 만들 수 없는 원형 어안의 과장된 원근감"], style:"style-lens-wide", specs:[["Mount","FUJIFILM X","APS-C X 마운트"],["Focal Length","6.5mm","극초광각 어안"],["Max Aperture","F2.0","밝은 수동 조리개"],["Focus","Manual","수동초점 특수 렌즈"]], features:[["Look","원형 어안 · 강한 왜곡"],["Best For","크리에이티브 컷 · 공간 연출"]], use:"일반 렌즈로는 만들 수 없는 과장된 원근감, 원형 어안 구도, 실험적인 SNS 컷에 적합합니다." },
+        { id:"hasselblad-xcd-55v", name:"Hasselblad XCD 2,5/55V", tags:["XCD 마운트","55mm","F2.5","V 렌즈"], eyebrow:"HASSELBLAD XCD V", pill:"XCD 마운트 · 55mm · F2.5", subtitle:"43mm 환산 표준 화각과 F2.5 밝기를 제공하는 Hasselblad XCD V 시리즈 표준 단렌즈", summary:"인물, 스냅, 제품, 파인아트에 균형 있게 쓰기 좋은 XCD 표준 단렌즈", transition:["NATURAL STANDARD","43mm의 거리감", "중형 포맷에서 가장 자연스럽게 사람과 공간을 담는 표준 렌즈"], style:"style-medium-format", specs:[["Mount","Hasselblad XCD","X 시스템 렌즈"],["Focal Length","55mm","35mm 환산 약 43mm"],["Max Aperture","F2.5","중형 포맷 표준 대구경"],["Shutter","Leaf shutter","렌즈 내장 셔터 구조"]], features:[["Best For","인물 · 스냅 · 제품 · 파인아트"],["Look","자연스러운 원근감과 높은 디테일"]], use:"X2D II에서 가장 범용적인 표준 화각으로, 자연스러운 거리감의 인물과 제품 촬영에 좋습니다." },
+        { id:"hasselblad-xcd-28p", name:"Hasselblad XCD 4/28P", tags:["XCD 마운트","28mm","F4","P 렌즈"], eyebrow:"HASSELBLAD XCD P", pill:"XCD 마운트 · 28mm · F4", subtitle:"22mm 환산 광각 화각을 제공하는 Hasselblad XCD 시스템의 컴팩트 광각 단렌즈", summary:"풍경, 공간, 여행, 환경 인물 촬영에 적합한 작고 가벼운 XCD 광각 렌즈", transition:["MEDIUM WIDE","22mm의 공간감", "중형 포맷 디테일로 넓은 공간을 깨끗하게 담는 광각 렌즈"], style:"style-lens-wide", specs:[["Mount","Hasselblad XCD","X 시스템 렌즈"],["Focal Length","28mm","35mm 환산 약 22mm"],["Max Aperture","F4","컴팩트 광각 설계"],["Shutter","Leaf shutter","렌즈 내장 셔터 구조"]], features:[["Best For","풍경 · 공간 · 환경 인물"],["Look","넓은 화각과 높은 중형 포맷 디테일"]], use:"스튜디오 공간, 건축적 배경, 여행 풍경, 넓은 배경을 포함한 인물 촬영에 좋습니다." },
+        { id:"canon-ef-50mm-f18-ii", name:"Canon EF 50mm f/1.8 II", tags:["EF 마운트","50mm","F1.8","표준 단렌즈"], eyebrow:"CANON EF PRIME", pill:"EF 마운트 · 50mm · F1.8", subtitle:"Canon EF 마운트용 가볍고 단순한 50mm F1.8 표준 단렌즈", summary:"저렴하고 가벼운 표준 단렌즈로 기본 인물과 얕은 심도 연습에 적합", transition:["NIFTY FIFTY","기본기의 50mm", "가볍게 얕은 심도와 표준 화각을 경험하는 EF 단렌즈"], style:"style-classic", specs:[["Mount","Canon EF","풀프레임 EF 마운트"],["Focal Length","50mm","표준 화각"],["Max Aperture","F1.8","밝은 조리개"],["Focus","AF","마이크로 모터 AF"]], features:[["Best For","입문 인물 · 실내 스냅"],["Look","간단한 얕은 심도 표현"]], use:"Canon EOS 6D와 함께 기본적인 인물, 실내 스냅, 얕은 심도 표현을 간단하게 만들 때 좋습니다." }
+      ],
+      light: [
+        { id:"nanlite-fc-720c", name:"Nanlite FC-720C", tags:["지속광","풀컬러 RGBW","750W","Bowens"], eyebrow:"NANLITE FC SERIES", pill:"지속광 · 풀컬러 · Bowens", subtitle:"대형 세트와 밝은 환경에서도 색 표현과 광량을 동시에 확보하는 750W급 풀컬러 LED 스팟 조명", summary:"대형 세트, 컬러 연출, 이벤트 포토존 메인 조명에 적합한 고출력 풀컬러 LED 스팟 조명", transition:["FULL COLOR POWER","750W RGBW", "밝은 행사장과 대형 세트에서도 컬러와 광량을 동시에 확보하는 메인 조명"], style:"style-light-color", specs:[["Rated Power","750W","대광량 풀컬러 COB 클래스"],["Brightness","102,600 lx","1m 환산 · 5600K · 45° 리플렉터 기준"],["CCT Range","2400–12000K","G/M ±150 보정 지원"],["Color Accuracy","CRI 95 / TLCI 94","평균값 기준"]], features:[["Control","본체 조작 · NANLINK App · DMX/RDM · NFC"],["Modes / Effects","CCT · HSI · RGBW · Gel · Effect / 15종 FX"]], use:"인물 촬영의 강한 키라이트, 컬러 배경광, 대형 소프트박스/프레넬 조합, 이벤트 포토존 메인 조명에 적합합니다." },
+        { id:"nanlite-fs-300c", name:"Nanlite FS-300C", qty:"×2", tags:["지속광","RGBW","300W","Bowens"], eyebrow:"NANLITE FS SERIES", pill:"RGBW · 300W · Bowens · ×2", subtitle:"300W급 RGBW AC 일체형 LED 모노라이트로 컬러 연출과 실용 광량을 동시에 제공하는 지속광", summary:"이벤트 포토존, 인물 키라이트, 컬러 배경 연출에 좋은 300W급 풀컬러 지속광", transition:["COLOR KEY LIGHT","300W RGBW", "실용 광량과 컬러 연출을 함께 잡는 풀컬러 스튜디오 조명"], style:"style-light-color", specs:[["Rated Power","300W","AC 전원 일체형 모노라이트"],["Brightness","34,200 lx","1m · 5600K · 리플렉터 기준"],["CCT Range","2700–7500K","G/M ±150 보정"],["Color Accuracy","CRI 95 / TLCI 94","고연색성 RGBW 광원"]], features:[["Control","본체 · NANLINK App · 2.4G"],["Mount","Bowens 마운트 · 일반 모디파이어 호환"]], use:"밝은 행사장이나 스튜디오에서 컬러 효과와 실용적인 키라이트를 동시에 확보하고 싶을 때 좋습니다." },
+        { id:"nanlite-forza-60c", name:"Nanlite Forza 60C", tags:["지속광","RGBLAC","60W","FM Mount"], eyebrow:"NANLITE FORZA", pill:"RGBLAC · 60W · FM Mount", subtitle:"RGBLAC 6색 광원 구조를 사용하는 소형 풀컬러 LED 스팟 조명", summary:"작지만 강한 출력과 풍부한 컬러 표현을 가진 소형 풀컬러 지속광", transition:["SMALL COLOR SPOT","작지만 컬러풀하게", "작은 세트와 프로젝션 효과에 어울리는 소형 풀컬러 스팟 조명"], style:"style-light-color", specs:[["Rated Power","60W","소형 RGBLAC COB"],["Brightness","12,810 lx","1m · 5600K · 리플렉터 기준"],["CCT Range","1800–20000K","넓은 색온도 범위"],["Effects","15 FX","컬러 효과 모드"]], features:[["Mount","FM Mount · Bowens 어댑터 가능"],["Power","AC · NP-F/V-Mount 운용 가능"]], use:"작은 세트의 포인트 컬러, 헤어라이트, 테이블탑 제품 조명, 36도 프로젝션 어태치먼트 스팟 효과에 좋습니다." },
+        { id:"nanlite-forza-60", name:"Nanlite Forza 60", tags:["지속광","Daylight","60W급","FM Mount"], eyebrow:"NANLITE FORZA", pill:"Daylight · 5600K · FM Mount", subtitle:"5600K 데이라이트 밸런스의 소형 고출력 LED 스팟 조명", summary:"가볍고 강한 데이라이트 소형 조명으로 보조광과 스팟 연출에 유용", transition:["DAYLIGHT SPOT","작은 5600K 포인트", "좁은 공간에서 빠르게 세팅하는 작고 선명한 데이라이트 조명"], style:"style-light-power", specs:[["Color","5600K","데이라이트 고정 색온도"],["Brightness","11,950 lx","1m · 리플렉터 기준"],["Color Accuracy","CRI 98 / TLCI 95","고연색성 기준"],["Mount","FM Mount","Bowens 어댑터 사용 가능"]], features:[["Body","약 0.8kg급 소형 바디"],["Best For","헤어라이트 · 스팟 · 보조광"]], use:"좁은 공간에서 세팅하기 쉬운 작은 키라이트, 백라이트, 프로젝션 어태치먼트용 스팟 조명으로 좋습니다." },
+        { id:"nanlite-pavotube-ii-30x", name:"Nanlite PavoTube II 30X", qty:"×2", tags:["튜브라이트","RGBWW","4ft","배터리"], eyebrow:"NANLITE PAVOTUBE", pill:"RGBWW 튜브 · 4ft · ×2", subtitle:"4피트 길이의 RGBWW LED 튜브라이트로 배경 라인, 컬러 림라이트, 실루엣 연출에 적합한 조명", summary:"배경 컬러 라인과 네온 느낌의 포인트 조명을 만들기 좋은 튜브라이트", transition:["NEON LINE","배경에 그리는 색", "공간 뒤쪽에 컬러 라인과 림라이트를 만드는 RGBWW 튜브"], style:"style-light-color", specs:[["Type","RGBWW Tube","컬러 튜브 조명"],["Length","4 ft / 117cm급","대형 튜브 사이즈"],["CCT Range","2700–12000K","G/M 보정 지원"],["Battery","내장 배터리","무선 배치 가능"]], features:[["Control","본체 · NANLINK · DMX 계열"],["Best For","배경선 · 림라이트 · 컬러 포인트"]], use:"사진 배경에 컬러 라인을 넣거나 모델 뒤쪽에 네온 같은 림라이트를 만드는 데 좋습니다." },
+        { id:"amaran-p60c", name:"amaran P60c", qty:"×2", tags:["패널","RGBWW","60W","Sidus Link"], eyebrow:"AMARAN RGBWW PANEL", pill:"RGBWW 패널 · 60W · ×2", subtitle:"60W RGBWW LED 패널로 컬러 연출과 부드러운 근거리 조명을 제공하는 소형 패널 조명", summary:"근거리 인물, 제품, 배경 컬러, 테이블탑 촬영에 편리한 RGBWW 패널", transition:["SOFT COLOR PANEL","가깝고 부드럽게", "제품과 근거리 인물에 컬러와 확산감을 더하는 RGBWW 패널"], style:"style-light-color", specs:[["Rated Power","60W","소형 RGBWW 패널"],["CCT Range","2500–7500K","G/M 보정 지원"],["Color","RGBWW","HSI 컬러 컨트롤"],["Control","Sidus Link","앱 제어 지원"]], features:[["Power","AC · 배터리 운용 가능"],["Best For","제품 · 배경색 · 보조광"]], use:"근거리 제품 촬영, 배경 색 추가, 눈빛 보조광, 작은 공간의 부드러운 면광원으로 쓰기 좋습니다." },
+        { id:"godox-sl60w", name:"Godox SL-60W", qty:"×2", tags:["지속광","Daylight","60W","Bowens"], eyebrow:"GODOX SL SERIES", pill:"Daylight · 60W · Bowens · ×2", subtitle:"5600K 고정 색온도의 60W급 Bowens 마운트 LED 지속광", summary:"기본 영상 조명, 보조광, 소형 소프트박스 조합에 적합한 입문형 지속광", transition:["BASIC DAYLIGHT","기본 5600K", "간단한 영상과 보조광 세팅을 위한 기본 데이라이트 지속광"], style:"style-light-power", specs:[["Rated Power","60W","LED 지속광"],["Color","5600K","데이라이트 고정"],["Brightness","약 4100 lx","1m 기준 제조사급 표기"],["Mount","Bowens","일반 소프트박스 호환"]], features:[["Dimming","10–100%","밝기 조절"],["Best For","기본 영상 · 보조 키라이트"]], use:"작은 소프트박스와 조합해 간단한 인터뷰, 제품 촬영, 보조 키라이트로 쓰기 좋습니다." },
+        { id:"fomex-e400", name:"Fomex E400", qty:"×4", tags:["스트로브","400Ws","Bowens","스튜디오"], eyebrow:"FOMEX STROBE", pill:"400Ws 스트로브 · Bowens · ×4", subtitle:"400Ws급 스튜디오 스트로브로 인물, 프로필, 제품 촬영에서 안정적인 순간광 출력을 제공하는 조명", summary:"스튜디오 인물과 제품 촬영에 쓰기 좋은 400Ws급 순간광 스트로브", transition:["STUDIO STROBE","400Ws 순간광", "낮은 ISO와 선명한 정지를 만드는 기본 스튜디오 스트로브"], style:"style-flash", specs:[["Type","Studio Strobe","순간광 플래시"],["Power","400Ws","스튜디오 기본 출력급"],["Mount","Bowens","Bowens 타입 모디파이어 호환"],["Use","Still Photo","사진 촬영 중심"]], features:[["Best For","프로필 · 제품 · 증명 · 콘셉트"],["Look","짧은 발광시간 · 선명한 정지 이미지"]], use:"움직임을 선명하게 정지시키거나 낮은 ISO에서 깨끗한 인물·제품 사진을 찍을 때 좋습니다." },
+        { id:"godox-ad200pro-ii", name:"Godox AD200Pro II", tags:["플래시","200Ws","TTL/HSS","무선"], eyebrow:"GODOX WITSTRO", pill:"200Ws · TTL/HSS · 포터블", subtitle:"200Ws 출력의 포터블 TTL/HSS 플래시로 스튜디오와 로케이션 양쪽에 유연하게 쓰이는 조명", summary:"작지만 강한 포터블 플래시로 로케이션 인물과 소프트박스 조합에 적합", transition:["PORTABLE FLASH","200Ws를 들고 나가기", "로케이션에서도 태양광을 밀어내는 휴대용 플래시"], style:"style-flash", specs:[["Power","200Ws","스피드라이트보다 강한 출력"],["Modes","TTL / Manual / Multi","시스템별 트리거 연동"],["Sync","HSS","고속동조 지원"],["Battery","Li-ion","휴대용 배터리 플래시"]], features:[["Heads","교체형 플래시 헤드 구조"],["Best For","야외 인물 · 소형 소프트박스"]], use:"로케이션에서 태양광을 누르거나, 작은 소프트박스와 함께 이동형 인물 조명으로 쓰기 좋습니다." },
+        { id:"godox-v1-s", name:"Godox V1-S", tags:["스피드라이트","Sony","TTL/HSS","라운드헤드"], eyebrow:"GODOX V SERIES", pill:"Sony TTL · Round Head", subtitle:"Sony용 라운드헤드 TTL 리튬 배터리 스피드라이트", summary:"카메라 핫슈 또는 무선 조명으로 쓰기 좋은 원형 헤드 스피드라이트", transition:["ROUND HEAD FLASH","빠르게, 부드럽게", "이동 촬영에서 바로 꺼내 쓰는 라운드헤드 스피드라이트"], style:"style-flash", specs:[["System","Sony TTL","V1-S 모델"],["Guide No.","GN 28","ISO100 · 50mm 기준"],["Sync","TTL / HSS","고속동조 지원"],["Battery","Li-ion","빠른 재충전과 장시간 사용"]], features:[["Head","Round head","부드러운 원형 광 분포"],["Best For","이벤트 · 보조광 · 온카메라 플래시"]], use:"스냅, 이벤트, 빠른 이동 촬영에서 온카메라 바운스 또는 오프카메라 보조광으로 쓰기 좋습니다." },
+        { id:"godox-tt685ii-c", name:"Godox TT685II-C", qty:"×2", tags:["스피드라이트","Canon","TTL/HSS","AA 배터리"], eyebrow:"GODOX TT SERIES", pill:"Canon TTL · ×2", subtitle:"Canon용 TTL/HSS 지원 AA 배터리 스피드라이트", summary:"Canon 시스템용 범용 스피드라이트로 온카메라·오프카메라 모두 활용 가능", transition:["SYSTEM SPEEDLIGHT","Canon TTL", "AA 배터리 기반의 범용 다등 플래시"], style:"style-flash", specs:[["System","Canon TTL","TT685II-C 모델"],["Guide No.","GN 60","ISO100 · 200mm 기준"],["Sync","TTL / HSS","고속동조 지원"],["Power","AA batteries","AA 배터리 구동"]], features:[["Radio","Godox 2.4G X System"],["Best For","이벤트 · 보조광 · 다등 플래시"]], use:"Canon 바디와 함께 쓰거나 Godox 무선 시스템의 오프카메라 플래시로 사용하기 좋습니다." },
+        { id:"godox-it32", name:"Godox iT32", tags:["미니 플래시","Sony/Fujifilm","TTL","휴대용"], eyebrow:"GODOX MINI FLASH", pill:"Sony / Fujifilm · Mini TTL", subtitle:"소형 카메라에 어울리는 미니 TTL 플래시로 Sony와 Fujifilm용을 보유한 휴대용 플래시", summary:"가벼운 스냅과 작은 바디 조합에 적합한 휴대용 미니 플래시", transition:["MINI TTL","작은 바디의 작은 플래시", "스냅 카메라에 부담 없이 얹는 휴대용 미니 플래시"], style:"style-flash", specs:[["Type","Mini Speedlite","소형 핫슈 플래시"],["System","Sony / Fujifilm","보유 모델 기준"],["Mode","TTL / Manual","자동 및 수동 발광"],["Use","On-camera","소형 바디용 휴대 플래시"]], features:[["Best For","스냅 · 근거리 보조광"],["Look","가볍고 빠른 플래시 컷"]], use:"큰 플래시가 부담스러운 작은 카메라에서 실내 스냅과 근거리 보조광으로 쓰기 좋습니다." },
+        { id:"sony-hvl-f20m", name:"Sony HVL-F20M", tags:["스피드라이트","Sony MI Shoe","GN20","컴팩트"], eyebrow:"SONY FLASH", pill:"Sony MI Shoe · GN20", subtitle:"Sony 멀티 인터페이스 슈용 컴팩트 외장 플래시", summary:"작고 가벼운 Sony용 보조 플래시로 바운스와 간단한 스냅 보조광에 적합", transition:["COMPACT BOUNCE","작은 Sony 플래시", "필요할 때만 가볍게 꺼내는 초소형 보조광"], style:"style-flash", specs:[["System","Sony MI Shoe","Sony 멀티 인터페이스 슈"],["Guide No.","GN 20","ISO100 · m 기준"],["Power","AAA batteries","소형 배터리 구동"],["Head","Bounce capable","간단한 바운스 촬영"]], features:[["Best For","스냅 · 보조광"],["Body","초소형 휴대 플래시"]], use:"Sony 바디에 가볍게 달아 실내 스냅, 눈빛 보조, 약한 바운스 플래시에 쓰기 좋습니다." }
+      ],
+      tool: [
+        { id:"nanlite-fl-20g", name:"Nanlite FL-20G", tags:["프레넬","집광","Bowens","광 제어"], eyebrow:"NANLITE FRESNEL", pill:"프레넬 렌즈 · Bowens", subtitle:"Bowens 마운트 조명에 장착해 빔 각도를 좁히고 조도를 높이는 프레넬 렌즈", summary:"기본 리플렉터보다 더 강한 집광과 방향성을 만들어 주는 빛 제어용 액세서리", transition:["FOCUS THE BEAM","빛을 더 멀리","확산된 빛을 더 모아 또렷한 방향성과 강한 광량감을 만드는 프레넬 툴"], style:"style-light-power", specs:[["Type","Fresnel Lens","집광형 광학 액세서리"],["Mount","Bowens","Bowens 타입 조명 호환"],["Effect","Beam Focus","빛을 더 좁고 강하게 집중"],["Use","Directional Light","방향성 있는 조명 연출"]], features:[["Best For","집광 · 포인트광 · 거리 확보"],["Look","좁고 또렷한 빔"]], use:"피사체 뒤쪽 포인트 라이트, 헤어라이트, 배경 원형광, 더 멀리 도달하는 집광 세팅에 적합합니다." },
+        { id:"fomex-sb80x120", name:"Fomex SB80×120", qty:"×2", tags:["소프트박스","80×120cm","Bowens","이중 디퓨저"], eyebrow:"FOMEX SOFTBOX", pill:"80×120cm · Bowens · 이중 디퓨저", subtitle:"내부 디퓨저와 전면 디퓨저를 모두 사용하는 직사각형 소프트박스", summary:"부드럽고 넓은 광질을 만들어 인물 키라이트와 상반신 촬영에 적합한 대형 소프트박스", transition:["SOFT KEY LIGHT","넓고 부드럽게","인물 피부를 매끈하게 만들고 그림자를 부드럽게 정리하는 기본 소프트박스"], style:"style-light-power", specs:[["Size","80×120cm","직사각형 대형 모디파이어"],["Mount","Bowens","범용 Bowens 마운트"],["Diffusion","이중 디퓨저","내부 + 전면 확산"],["Light Quality","Soft","부드럽고 넓은 면광원"]], features:[["Best For","인물 · 프로필 · 반신 촬영"],["Look","부드러운 피부 표현"]], use:"메인 키라이트로 사용해 피부를 부드럽게 표현하거나, 제품 촬영에서 넓은 확산광이 필요할 때 좋습니다." },
+        { id:"godox-softbox-80x120", name:"Godox 80×120cm 소프트박스", qty:"×2", tags:["소프트박스","80×120cm","Bowens","직사각형"], eyebrow:"GODOX SOFTBOX", pill:"80×120cm · Bowens · ×2", subtitle:"직사각형 구조의 범용 Bowens 마운트 소프트박스", summary:"부드러운 메인광과 보조광을 만들기 좋은 기본형 대형 소프트박스", transition:["BASIC SOFT MODIFIER","가장 실용적인 확산광","인물과 제품에 두루 쓰기 좋은 범용 직사각형 소프트박스"], style:"style-light-power", specs:[["Size","80×120cm","직사각형 소프트박스"],["Mount","Bowens","범용 마운트"],["Type","Soft Modifier","확산형 면광원"],["Use","General Purpose","다목적 메인/보조광"]], features:[["Best For","인물 · 제품 · 기본 키라이트"],["Look","균형 잡힌 부드러운 광질"]], use:"스튜디오에서 가장 범용적으로 쓰이는 기본 소프트 모디파이어로, 인물과 제품 모두에 무난하게 대응합니다." },
+        { id:"nanlite-90cm-parabolic", name:"Nanlite 90cm 파라볼릭", tags:["파라볼릭","90cm","입고 예정","Bowens"], eyebrow:"NANLITE PARABOLIC", pill:"90cm 파라볼릭 · 입고 예정", subtitle:"보다 집중감 있는 부드러운 광질을 만드는 파라볼릭 형태의 모디파이어", summary:"일반 소프트박스보다 조금 더 방향성 있고 깊이감 있는 소프트광을 만드는 파라볼릭 모디파이어", transition:["CONTROLLED SOFTNESS","부드럽지만 더 집중되게","확산광의 부드러움과 파라볼릭의 방향성을 함께 가져가는 모디파이어"], style:"style-light-power", specs:[["Type","Parabolic Modifier","집중감 있는 확산광"],["Size","90cm","인물용으로 적절한 중형 크기"],["Mount","Bowens","Bowens 타입 조명 호환"],["Status","입고 예정","향후 추가 예정 장비"]], features:[["Best For","인물 · 패션 · 상반신"],["Look","더 입체적인 소프트광"]], use:"얼굴 윤곽과 입체감은 살리면서도 광질은 부드럽게 유지하고 싶을 때 적합합니다." },
+        { id:"horusbennu-bowens55-beauty-dish", name:"호루스벤누 Bowens55 뷰티디쉬", tags:["뷰티디쉬","Bowens","허니컴","디퓨저"], eyebrow:"BEAUTY DISH", pill:"Bowens55 · 허니컴 디퓨저", subtitle:"뷰티 촬영에 적합한 디쉬형 모디파이어로 허니컴과 디퓨저를 함께 활용 가능", summary:"소프트박스보다 더 직접적이고 패션/뷰티에 어울리는 입체적인 광을 만드는 뷰티디쉬", transition:["BEAUTY SHAPE","얼굴에 집중된 광","뷰티 촬영에서 피부와 얼굴 윤곽을 또렷하게 살리는 디쉬형 광질"], style:"style-lens-portrait", specs:[["Type","Beauty Dish","패션/뷰티용 중심 모디파이어"],["Mount","Bowens","범용 Bowens 장착"],["Accessory","Honeycomb / Diffuser","방향성 및 확산 제어"],["Light Quality","Crisp Soft","부드럽지만 중심감 있는 광"]], features:[["Best For","뷰티 · 패션 · 얼굴 클로즈업"],["Look","입체적인 얼굴광"]], use:"얼굴 중심의 뷰티 촬영이나 패션 촬영에서 윤곽과 질감을 살리기에 좋습니다." },
+        { id:"nanlite-fl-11", name:"Nanlite FL-11", tags:["프레넬","FM Mount","집광","Forza 60"], eyebrow:"NANLITE FRESNEL", pill:"FM Mount · Fresnel", subtitle:"Nanlite FM 마운트 소형 조명에 장착해 빔 각도와 광량 집중도를 조절하는 소형 프레넬 렌즈", summary:"Forza 60 계열 같은 소형 조명에 집중된 스팟광을 만드는 프레넬 렌즈", transition:["TIGHTER SPOT","작은 조명을 더 강하게","소형 라이트의 도달거리와 방향성을 끌어올리는 프레넬 툴"], style:"style-light-power", specs:[["Type","Fresnel Lens","집광용 렌즈"],["Mount","Nanlite FM","Forza 60 계열 호환"],["Function","Spot / Flood","빔 각도 조절"],["Use","Output focus","조도 집중 및 방향성 강화"]], features:[["Best For","헤어라이트 · 스팟 · 배경 하이라이트"],["Look","작고 강한 방향성 있는 빛"]], use:"작은 조명으로 배경 일부를 찍거나 헤어라이트를 더 또렷하게 만들고 싶을 때 좋습니다." },
+        { id:"nanlite-fm-projector-36", name:"Nanlite FM 프로젝터 36°", tags:["프로젝션","36°","FM Mount","고보/컷"], eyebrow:"NANLITE PROJECTOR", pill:"FM 마운트 · 36° 프로젝터", subtitle:"빛을 스팟으로 만들고 컷, 고보, 그림자 연출을 가능하게 하는 프로젝션 어태치먼트", summary:"스튜디오에서 극적인 스팟광, 패턴광, 정밀한 컷광을 만들기 좋은 프로젝터 액세서리", transition:["PROJECT THE LIGHT","빛에 형태를 부여하다","일반 조명을 연출용 스팟과 패턴광으로 바꾸는 프로젝션 툴"], style:"style-cinema", specs:[["Mount","FM Mount","Nanlite 소형 조명 계열"],["Angle","36°","중간 정도의 투사각"],["Effect","Cut / Pattern / Gobo","형태 제어 가능"],["Use","Creative Lighting","연출형 조명 세팅"]], features:[["Best For","스팟광 · 배경 패턴 · 연출 촬영"],["Look","극적인 그림자와 패턴"]], use:"얼굴 일부만 비추는 스팟광, 배경 패턴, 창문 그림자 같은 연출광에 적합합니다." },
+        { id:"smdv-flip-28-24", name:"SMDV Flip 28 / 24", tags:["소프트박스","Flip","빠른 설치","인물용"], eyebrow:"SMDV FLIP", pill:"24 / 28인치 · 접이식", subtitle:"빠르게 펼치고 접을 수 있는 인물용 소프트박스 모디파이어", summary:"빠른 세팅과 휴대성이 좋은 접이식 소프트박스로 인물 키라이트에 적합", transition:["QUICK SOFT LIGHT","빠르게 펼치고 바로 사용","이동성과 세팅 속도를 중시할 때 유용한 접이식 소프트박스"], style:"style-light-power", specs:[["Sizes","24 / 28 inch","중형 인물용 크기"],["Type","Flip Softbox","빠른 오픈 구조"],["Use","Portrait Modifier","인물 중심 활용"],["Strength","Fast Setup","현장 전환이 빠름"]], features:[["Best For","인물 · 프로필 · 빠른 세팅"],["Look","부드럽고 관리 쉬운 광"]], use:"촬영 템포가 빠르거나, 세팅과 철수를 신속하게 해야 할 때 편리합니다." },
+        { id:"u-shape-reflector-120", name:"120cm U자형 반사판", tags:["반사판","120cm","U자형","뷰티"], eyebrow:"REFLECTOR TOOL", pill:"120cm · U자형 반사판", subtitle:"얼굴 아래쪽과 양옆에 부드럽게 빛을 채워주는 U자형 반사판", summary:"뷰티, 상반신, 제품 촬영에서 그림자를 완화하고 하부 필을 넣기 좋은 반사판", transition:["FILL THE SHADOW","아래쪽 그림자를 부드럽게","얼굴 아래의 어두움을 정리하고 더 깨끗한 피부 표현을 만드는 반사판"], style:"style-lens-portrait", specs:[["Type","U-shaped Reflector","얼굴 감싸는 구조"],["Size","120cm","상반신/얼굴용 적절한 크기"],["Effect","Fill Light","하부 그림자 완화"],["Use","Beauty / Portrait","뷰티 촬영에 유용"]], features:[["Best For","뷰티 · 프로필 · 제품"],["Look","깨끗한 하부 필"]], use:"뷰티 촬영에서 턱 밑 그림자를 정리하거나, 제품에 아래쪽 반사를 넣고 싶을 때 좋습니다." },
+        { id:"various-led-reflectors", name:"Various LED Light Reflectors", tags:["리플렉터","LED","빔 제어","기본 액세서리"], eyebrow:"LED REFLECTOR", pill:"LED 리플렉터 · 기본 광 제어", subtitle:"LED 조명 앞에 장착해 광량 효율과 빔 방향성을 높이는 기본 리플렉터들", summary:"조명 자체의 광량 체감을 높이고 빛의 퍼짐을 제어하는 기본 반사 액세서리", transition:["SHAPE THE OUTPUT","기본 빔을 정리하다","가장 단순하지만 효율적으로 광량감과 방향성을 끌어올리는 기본 툴"], style:"style-light-power", specs:[["Type","Standard Reflectors","LED용 반사갓"],["Effect","Output Gain","광량 체감 증가"],["Use","Beam Control","빛 퍼짐 조정"],["Compatibility","Various LED Heads","여러 조명과 조합"]], features:[["Best For","기본 집광 · 효율 향상"],["Look","깔끔한 직접광"]], use:"소프트박스를 쓰지 않고도 기본 광량을 확보하거나, 빛을 조금 더 정리해서 쓰고 싶을 때 유용합니다." }
+      ],
+      etc: [
+        { id:"godox-x3-pro", name:"Godox X3 Pro", tags:["트리거","Nikon/Hasselblad","TTL/HSS","터치"], eyebrow:"GODOX TRIGGER", pill:"Nikon / Hasselblad · 무선 트리거", subtitle:"Godox X 시스템 플래시와 조명을 제어하는 Nikon / Hasselblad용 무선 트리거", summary:"오프카메라 플래시와 Godox 조명을 무선으로 제어하는 고급형 트리거", transition:["CONTROL THE FLASH","무선 조명의 중심","현장에서 여러 플래시와 조명을 빠르게 묶어 제어하는 핵심 트리거"], style:"style-flash", specs:[["System","Godox X","2.4GHz 무선 제어"],["Camera Support","Nikon / Hasselblad","보유 모델 기준"],["Functions","TTL / HSS / Group","광량 및 그룹 제어"],["Interface","Touch UI","직관적인 조작"]], features:[["Best For","Godox 플래시 시스템 제어"],["Workflow","다등 무선 제어"]], use:"Godox 플래시와 배터리 스트로브를 그룹으로 나눠 빠르게 제어할 때 핵심적으로 사용합니다." },
+        { id:"godox-x3-sony", name:"Godox X3", tags:["트리거","Sony","TTL/HSS","무선"], eyebrow:"GODOX TRIGGER", pill:"Sony · 무선 트리거", subtitle:"Sony용 Godox X 시스템 무선 플래시 트리거", summary:"Sony 카메라에서 Godox 플래시 시스템을 무선 제어하는 트리거", transition:["SONY WIRELESS CONTROL","Sony 플래시 제어","Sony 바디에서 Godox 조명을 통합 제어하는 무선 트리거"], style:"style-flash", specs:[["System","Godox X","2.4GHz 무선 트리거"],["Camera Support","Sony","Sony 멀티 인터페이스 슈"],["Functions","TTL / HSS","자동/고속동조 지원"],["Use","Group Control","다등 플래시 제어"]], features:[["Best For","Sony + Godox 무선 세팅"],["Workflow","빠른 광량 조절"]], use:"Sony 바디에서 AD200Pro II, V1, 기타 Godox 플래시를 통합 제어할 때 사용합니다." },
+        { id:"godox-xproii-s", name:"Godox XPro II-S", tags:["트리거","Sony","TTL/HSS","대형 UI"], eyebrow:"GODOX TRIGGER", pill:"Sony · XPro II", subtitle:"Sony용 Godox XPro II 무선 트리거로 그룹별 제어와 빠른 조작이 가능한 모델", summary:"큰 화면과 직관적 그룹 제어를 제공하는 Sony용 무선 트리거", transition:["GROUP BY GROUP","한눈에 조명 그룹 제어","여러 플래시를 빠르고 정확하게 조절하기 쉬운 대화면 트리거"], style:"style-flash", specs:[["System","Godox X","2.4GHz"],["Camera Support","Sony","Sony용 트리거"],["Functions","TTL / HSS / Multi","고급 제어 기능"],["Strength","Large Interface","빠른 그룹 조작"]], features:[["Best For","다등 플래시 운영"],["Workflow","가독성 좋은 제어 화면"]], use:"여러 조명을 동시에 쓰는 세팅에서 그룹 단위 제어를 편하게 하고 싶을 때 적합합니다." },
+        { id:"phoism-rx1", name:"Phoism RX1 동조기", tags:["동조기","Fomex","무선","스트로브"], eyebrow:"SYNC TRIGGER", pill:"Fomex용 동조기", subtitle:"Fomex 계열 조명과 호환되는 무선 동조기", summary:"Fomex E400 등 순간광을 무선으로 동조시키기 위한 전용 동조기", transition:["SYNC THE STROBE","순간광을 맞춰 연결","스트로브의 발광 타이밍을 정확히 맞추는 동조 시스템"], style:"style-flash", specs:[["Type","Wireless Sync","무선 동조기"],["Compatibility","Fomex","Fomex 스트로브용"],["Use","Trigger Signal","셔터와 플래시 동기화"],["Best For","Studio Strobe","순간광 운용"]], features:[["Best For","Fomex 스트로브 운영"],["Workflow","안정적인 동조"]], use:"Fomex E400을 카메라와 동기화해 스튜디오 스트로브 촬영을 할 때 사용합니다." },
+        { id:"usb-c-c-tether", name:"USB-C 테더링 케이블", tags:["테더링","USB-C","3m","촬영 연결"], eyebrow:"TETHERING CABLE", pill:"USB-C to C · 3m", subtitle:"카메라와 컴퓨터를 연결해 촬영 이미지를 바로 확인하는 테더링 케이블", summary:"노트북이나 데스크탑과 가까운 거리에서 촬영 결과를 바로 확인하기 좋은 테더링 케이블", transition:["SEE IT RIGHT AWAY","찍자마자 확인","촬영한 이미지를 큰 화면에서 바로 확인하게 해주는 워크플로우 케이블"], style:"style-compact", specs:[["Type","USB-C to C","양쪽 USB-C 단자"],["Length","3m","기본 테더링 거리"],["Use","Tethered Shooting","촬영 직후 확인"],["Best For","Studio Workflow","프로필·제품 촬영"]], features:[["Best For","테더링 촬영"],["Workflow","즉시 확인 및 선별"]], use:"프로필, 제품, 광고 촬영에서 이미지 결과를 큰 화면으로 즉시 확인하고 싶을 때 사용합니다." },
+        { id:"usb-a-c-tether", name:"USB-A to C 테더링 케이블", tags:["테더링","USB-A to C","8m","장거리"], eyebrow:"TETHERING CABLE", pill:"USB-A to C · 8m", subtitle:"세트와 컴퓨터가 떨어져 있을 때 쓰는 장거리 테더링 케이블", summary:"컴퓨터 위치와 촬영 세트가 떨어져 있을 때 사용하는 장거리 테더링 케이블", transition:["LONGER WORKFLOW","더 멀리서도 바로 확인","촬영 공간과 컴퓨터 거리가 멀 때 유용한 장거리 테더링 연결"], style:"style-compact", specs:[["Type","USB-A to C","한쪽 USB-A / 한쪽 USB-C"],["Length","8m","장거리 연결용"],["Use","Long Tether","촬영 공간 분리 가능"],["Best For","Studio Set","컴퓨터 분리 배치"]], features:[["Best For","장거리 테더링"],["Workflow","넓은 세트 운용"]], use:"촬영 공간이 넓거나, 노트북을 피사체와 멀리 두고 운용해야 할 때 적합합니다." },
+        { id:"photoclam-ptc-4442plc", name:"포토클램 PTC-4442PLC", tags:["삼각대","카본","서포트","촬영 보조"], eyebrow:"TRIPOD SUPPORT", pill:"포토클램 · 카본 삼각대", subtitle:"고정된 구도와 안정적인 촬영을 위한 삼각대 시스템", summary:"정적인 인물, 제품, 장노출, 테더링 촬영에서 안정성을 확보하는 삼각대", transition:["LOCK THE FRAME","프레임을 고정하다","카메라 위치를 안정적으로 유지해 반복 촬영의 일관성을 높이는 서포트 장비"], style:"style-classic", specs:[["Type","Carbon Tripod","안정성과 휴대성"],["Use","Still / Product / Portrait","정적 촬영용"],["Benefit","Stable Framing","반복 구도 유지"],["Best For","Studio Use","고정 구도 세팅"]], features:[["Best For","정적 촬영 · 제품 · 장노출"],["Workflow","일관된 프레이밍"]], use:"제품이나 프로필 촬영에서 카메라 위치를 고정해 반복 컷의 일관성을 유지할 때 좋습니다." },
+        { id:"leofoto-lx-225ct", name:"레오포토 LX-225CT", tags:["삼각대","카본","경량","서포트"], eyebrow:"TRIPOD SUPPORT", pill:"Leofoto · 경량 삼각대", subtitle:"휴대성과 안정성을 겸한 경량 카본 삼각대", summary:"가볍게 이동하면서도 필요한 안정성을 확보하는 카메라 서포트 장비", transition:["LIGHTWEIGHT SUPPORT","가볍게, 그러나 안정적으로","이동성과 기본 안정성을 함께 챙기는 촬영 서포트 장비"], style:"style-compact", specs:[["Type","Carbon Tripod","경량형 삼각대"],["Use","Hybrid Studio / Location","스튜디오+로케이션 활용"],["Benefit","Portable","이동성 우수"],["Best For","Light Setup","가벼운 장비 세팅"]], features:[["Best For","가벼운 세팅 · 이동 촬영"],["Workflow","빠른 설치"]], use:"가벼운 카메라 세팅으로 이동 촬영하거나, 간단한 고정 구도를 만들 때 좋습니다." },
+        { id:"zoonics-hdv5000ex", name:"Zoonics HDV5000EX", tags:["비디오 삼각대","유압헤드","영상","서포트"], eyebrow:"VIDEO SUPPORT", pill:"영상용 삼각대 시스템", subtitle:"부드러운 팬/틸트 조작이 가능한 영상용 삼각대 및 헤드 시스템", summary:"고정 인터뷰, 브이로그, 메이킹 영상 촬영에서 안정적인 카메라 움직임을 제공하는 비디오 서포트", transition:["SMOOTH CAMERA MOVE","영상 움직임을 부드럽게","고정 프레임과 부드러운 패닝을 위한 비디오 서포트 시스템"], style:"style-cinema", specs:[["Type","Video Tripod","영상용 서포트 시스템"],["Head","Fluid-style Movement","팬/틸트 조작용"],["Use","Interview / Video","영상 촬영에 적합"],["Best For","Locked Shot + Pan","고정 구도와 부드러운 전환"]], features:[["Best For","영상 · 인터뷰 · 메이킹"],["Workflow","안정적인 팬/틸트"]], use:"인터뷰, 스튜디오 소개 영상, 메이킹 영상처럼 고정 구도와 부드러운 카메라 이동이 필요한 촬영에 좋습니다." }
+      ]
+    };
+
+    const listPage = document.getElementById("listPage");
+    const detailPage = document.getElementById("detailPage");
+    const itemList = document.getElementById("itemList");
+    const topPill = document.getElementById("topPill");
+    const listKicker = document.getElementById("listKicker");
+    const listTitle = document.getElementById("listTitle");
+    const listCopy = document.getElementById("listCopy");
+    const countValue = document.getElementById("countValue");
+    const systemValue = document.getElementById("systemValue");
+    const useValue = document.getElementById("useValue");
+    const backButton = document.getElementById("backButton");
+    const detailPill = document.getElementById("detailPill");
+    const detailEyebrow = document.getElementById("detailEyebrow");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailSubtitle = document.getElementById("detailSubtitle");
+    const specGrid = document.getElementById("specGrid");
+    const featureRow = document.getElementById("featureRow");
+    const detailUse = document.getElementById("detailUse");
+    const prevItem = document.getElementById("prevItem");
+    const nextItem = document.getElementById("nextItem");
+    const prevItemName = document.getElementById("prevItemName");
+    const nextItemName = document.getElementById("nextItemName");
+    const transitionLayer = document.getElementById("transitionLayer");
+    const transitionLabel = document.getElementById("transitionLabel");
+    const transitionTitle = document.getElementById("transitionTitle");
+    const transitionSub = document.getElementById("transitionSub");
+    const transitionContinue = document.getElementById("transitionContinue");
+    const transitionBack = document.getElementById("transitionBack");
+
+    let currentCategory = "camera";
+    let currentIndex = 0;
+    let pendingDetailId = null;
+    let transitionReady = false;
+
+    function activeItems() { return data[currentCategory]; }
+
+    function show(page) {
+      listPage.classList.toggle("active", page === "list");
+      detailPage.classList.toggle("active", page === "detail");
+      window.scrollTo(0, 0);
+    }
+
+    function renderList(category = currentCategory) {
+      currentCategory = category;
+      const info = categoryInfo[category];
+      const items = activeItems();
+
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.toggle("active", btn.dataset.category === category));
+      topPill.textContent = info.title.toUpperCase();
+      listKicker.textContent = info.kicker;
+      listTitle.innerHTML = info.headline;
+      listCopy.textContent = info.copy;
+      countValue.textContent = items.length;
+      systemValue.textContent = info.system;
+      useValue.textContent = info.use;
+      backButton.textContent = `‹ ${info.title} 목록`;
+      transitionBack.textContent = `‹ ${info.title} 목록`;
+
+      itemList.innerHTML = items.map((item, index) => `
+        <button class="item-card" data-id="${item.id}">
+          <div class="icon-badge ${info.icon}" aria-hidden="true"></div>
+          <div>
+            <div class="item-name">${String(index + 1).padStart(2, "0")} · ${item.name}${item.qty ? ` <span style="font-size:.7em;color:rgba(255,255,255,.58);">${item.qty}</span>` : ""}</div>
+            <div class="meta">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+            <div class="summary">${item.summary}</div>
+          </div>
+          <div class="arrow">›</div>
+        </button>
+      `).join("");
+
+      document.querySelectorAll("[data-id]").forEach(button => button.addEventListener("click", () => playTransition(button.dataset.id)));
+      show("list");
+    }
+
+    function playTransition(id) {
+      const item = activeItems().find(entry => entry.id === id);
+      const copy = item.transition || ["EQUIPMENT", item.name, item.summary];
+      pendingDetailId = id;
+      transitionReady = false;
+      transitionLabel.textContent = copy[0];
+      transitionTitle.textContent = copy[1];
+      transitionSub.textContent = copy[2];
+      transitionLayer.className = "transition-layer";
+      transitionLayer.classList.add(item.style || "style-resolution");
+      transitionLayer.classList.add("active");
+      transitionLayer.scrollTop = 0;
+      window.setTimeout(() => { transitionReady = true; }, 1500);
+    }
+
+    function finishTransition() {
+      if (!pendingDetailId || !transitionLayer.classList.contains("active") || !transitionReady) return;
+      transitionLayer.classList.add("leaving");
+      window.setTimeout(() => renderDetail(pendingDetailId), 360);
+      window.setTimeout(() => {
+        transitionLayer.classList.remove("active", "leaving");
+        pendingDetailId = null;
+        transitionReady = false;
+      }, 760);
+    }
+
+    function cancelTransition() {
+      if (!transitionLayer.classList.contains("active")) return;
+      transitionLayer.classList.add("leaving");
+      window.setTimeout(() => {
+        transitionLayer.classList.remove("active", "leaving");
+        pendingDetailId = null;
+        transitionReady = false;
+        show("list");
+      }, 520);
+    }
+
+    function renderDetail(id) {
+      const items = activeItems();
+      const item = items.find(entry => entry.id === id);
+      currentIndex = items.findIndex(entry => entry.id === id);
+      const info = categoryInfo[currentCategory];
+
+      detailPill.textContent = item.pill;
+      detailEyebrow.textContent = item.eyebrow;
+      detailTitle.textContent = item.name;
+      detailSubtitle.textContent = item.subtitle;
+      detailUse.textContent = item.use;
+
+      specGrid.innerHTML = item.specs.map(spec => `
+        <article class="spec-card"><div class="spec-label">${spec[0]}</div><div class="spec-value">${spec[1]}</div><div class="spec-note">${spec[2]}</div></article>
+      `).join("");
+
+      featureRow.innerHTML = item.features.map(feature => `
+        <article class="feature-panel"><div class="feature-title">${feature[0]}</div><div class="feature-text">${feature[1]}</div></article>
+      `).join("");
+
+      const prevIndex = (currentIndex - 1 + items.length) % items.length;
+      const nextIndex = (currentIndex + 1) % items.length;
+      prevItemName.textContent = items[prevIndex].name;
+      nextItemName.textContent = items[nextIndex].name;
+      prevItem.onclick = () => playTransition(items[prevIndex].id);
+      nextItem.onclick = () => playTransition(items[nextIndex].id);
+      backButton.textContent = `‹ ${info.title} 목록`;
+      show("detail");
+    }
+
+    document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => renderList(button.dataset.category)));
+    backButton.addEventListener("click", () => renderList(currentCategory));
+    transitionContinue.addEventListener("click", finishTransition);
+    transitionBack.addEventListener("click", cancelTransition);
+    document.addEventListener("keydown", (event) => {
+      if (!transitionLayer.classList.contains("active")) return;
+      if (["Enter", " "].includes(event.key)) {
+        event.preventDefault();
+        finishTransition();
+      }
+    });
+
+    renderList("camera");
+  </script>
+</body>
+</html>
