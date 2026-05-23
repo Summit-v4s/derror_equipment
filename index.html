@@ -161,7 +161,7 @@
 
     .tab-button {
       min-height: 88px;
-      border-radius: 999px;
+      border-radius: 34px;
       font-size: 21px;
       font-weight: 850;
       letter-spacing: -0.04em;
@@ -238,7 +238,7 @@
     .item-card {
       width: 100%;
       min-height: 270px;
-      border-radius: 38px;
+      border-radius: 34px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.075);
       backdrop-filter: blur(18px);
@@ -814,7 +814,7 @@
     .space-card {
       width: 100%;
       min-height: 285px;
-      border-radius: 42px;
+      border-radius: 34px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.075);
       backdrop-filter: blur(18px);
@@ -835,7 +835,7 @@
 
     .space-thumb,
     .space-photo {
-      border-radius: 30px;
+      border-radius: 34px;
       border: 1px solid rgba(255,255,255,0.18);
       background: #1a1a1a;
       overflow: hidden;
@@ -1084,17 +1084,17 @@
 
     #spacePage .kicker,
     #listPage .kicker {
-      font-size: 14px;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-      gap: 8px;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+      gap: 12px;
       color: rgba(255,255,255,0.92);
     }
 
     #spacePage .kicker::before,
     #listPage .kicker::before {
-      width: 18px;
-      height: 2px;
+      width: 52px;
+      height: 4px;
       background: rgba(255,255,255,0.92);
     }
 
@@ -1108,10 +1108,10 @@
 
     #spacePage .copy,
     #listPage .copy {
-      margin-top: 10px;
-      font-size: 16px;
-      line-height: 1.45;
-      max-width: 610px;
+      margin-top: 28px;
+      font-size: 32px;
+      line-height: 1.48;
+      max-width: 880px;
       color: rgba(255,255,255,0.74);
     }
 
@@ -1132,48 +1132,11 @@
     }
 
     #listPage .summary-strip {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0;
-      margin-top: 12px;
-      margin-bottom: 8px;
-      min-height: 46px;
-    }
-
-    #listPage .summary-box {
       display: none;
     }
 
-    #listPage .summary-box:first-child {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      width: 142px;
-      min-height: 46px;
-      padding: 8px 14px;
-      border-radius: 18px;
-      text-align: left;
-      background: rgba(255,255,255,0.058);
-      border-color: rgba(241,201,142,0.26);
-    }
-
-    #listPage .summary-label {
-      font-size: 14px;
-      margin-bottom: 0;
-      color: rgba(255,255,255,0.54);
-      white-space: nowrap;
-    }
-
-    #listPage .summary-value {
-      font-size: 25px;
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
     #listPage .item-list {
-      margin-top: 8px;
+      margin-top: 28px;
     }
 
     @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
@@ -1405,12 +1368,6 @@
         <button class="tab-button" data-category="etc">ETC</button>
       </div>
 
-      <div class="summary-strip">
-        <div class="summary-box"><div class="summary-label">총 장비</div><div id="countValue" class="summary-value">10</div></div>
-        <div class="summary-box"><div class="summary-label">주요 시스템</div><div id="systemValue" class="summary-value">FE / X / L</div></div>
-        <div class="summary-box"><div class="summary-label">주요 용도</div><div id="useValue" class="summary-value">PHOTO + VIDEO</div></div>
-      </div>
-
       <div id="itemList" class="item-list"></div>
     </section>
 
@@ -1528,9 +1485,6 @@
     const listKicker = document.getElementById("listKicker");
     const listTitle = document.getElementById("listTitle");
     const listCopy = document.getElementById("listCopy");
-    const countValue = document.getElementById("countValue");
-    const systemValue = document.getElementById("systemValue");
-    const useValue = document.getElementById("useValue");
     const backButton = document.getElementById("backButton");
     const detailPill = document.getElementById("detailPill");
     const detailEyebrow = document.getElementById("detailEyebrow");
@@ -1720,9 +1674,6 @@
       listKicker.textContent = info.kicker;
       listTitle.innerHTML = info.headline;
       listCopy.textContent = info.copy;
-      countValue.textContent = items.length;
-      systemValue.textContent = info.system;
-      useValue.textContent = info.use;
       backButton.textContent = `‹ ${info.title} 목록`;
       transitionBack.textContent = `‹ ${info.title} 목록`;
 
@@ -1927,7 +1878,7 @@
         document.documentElement.style.setProperty(variable, `${height}px`);
       };
 
-      setHeight(".item-list", "--item-list-height", 40, 640);
+      setHeight(".item-list", "--item-list-height", 20, 680);
       setHeight(".space-subgrid", "--space-subgrid-height", 72, 760);
       setHeight(".page.active .space-blog-scroll", "--space-blog-height", 72, 900);
     }
