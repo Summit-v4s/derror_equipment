@@ -212,11 +212,28 @@
     .item-list {
       height: 930px;
       overflow-y: auto;
-      padding-right: 8px;
+      padding: 34px 8px 34px 0;
+      scroll-padding: 34px 0;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
       display: grid;
       align-content: start;
       gap: 18px;
       margin-top: 42px;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        black 38px,
+        black calc(100% - 38px),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        black 38px,
+        black calc(100% - 38px),
+        transparent 100%
+      );
     }
 
     .item-list::-webkit-scrollbar { width: 8px; }
